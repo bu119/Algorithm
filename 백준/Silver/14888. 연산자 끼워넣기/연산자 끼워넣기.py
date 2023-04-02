@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 def dfs(idx, plus, minus, multiplication, division, result):
     global minV, maxV
     if idx == n:
