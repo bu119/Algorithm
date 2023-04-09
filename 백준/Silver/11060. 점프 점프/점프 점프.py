@@ -1,38 +1,29 @@
-import sys
-from collections import deque
+import sys, heapq
 input = sys.stdin.readline
 def bfs(v):
-    global ans
-    deq = deque()
-    deq.append([0, v])
+    heap = []
+    heapq.heappush(heap, [0, v])
 
-    while deq:
-        cnt, v = deq.popleft()
+    while heap:
+        cnt, v = heapq.heappop(heap)
 
         for i in range(1, A[v]+1):
-
             if v+i >= n - 1:
-                if ans > cnt+1:
-                    ans = cnt+1
-                visited[n - 1] = 1
-                continue
+                return cnt + 1
 
-            if visited[v+i] and visited[v+i] <= cnt+1:
+            if 0 < visited[v+i] <= cnt+1:
                 continue
-            visited[v + i] = cnt + 1
-            deq.append([cnt + 1, v+i])
+            visited[v+i] = cnt+1
+            heapq.heappush(heap, [cnt + 1, v+i])
 
+    return -1
 
 
 n = int(input())
 A = list(map(int,input().split()))
-visited = [0]*n
-if n > 1:
-    ans = n
-    bfs(0)
-    if visited[n-1] == 0:
-        ans = -1
 
-    print(ans)
-else:
+if n == 1:
     print(0)
+else:
+    visited = [0]*n
+    print(bfs(0))
