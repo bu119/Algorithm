@@ -30,12 +30,9 @@ for i in range(n-8+1):
                     if board[r + i][c + j] != 'B':
                         cntW += 1
 
-                if cntB > ans and cntW > ans:
-                    break
-
             if cntB > ans and cntW > ans:
                 break
-
+        
         if ans > min(cntB, cntW):
             ans = min(cntB,cntW)
 
