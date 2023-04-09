@@ -11,11 +11,9 @@ def bfs(v):
             if v+i >= n - 1:
                 return cnt + 1
 
-            if 0 < visited[v+i] <= cnt+1:
-                continue
-            visited[v+i] = cnt+1
-            heapq.heappush(heap, [cnt + 1, v+i])
-
+            if not visited[v+i]:
+                visited[v+i] = 1
+                heapq.heappush(heap, [cnt + 1, v+i])
     return -1
 
 
