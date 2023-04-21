@@ -1,9 +1,9 @@
 def dfs(idx, ssum):
 
     if idx == n:
+        visited[ssum] = 1
         return
 
-    visited[ssum+s[idx]] = 1
     dfs(idx + 1, ssum)
     dfs(idx + 1, ssum+s[idx])
 
@@ -14,7 +14,7 @@ total = sum(s)
 visited = [0]*(total+2)
 dfs(0,0)
 
-for j in range(1, total+2):
-    if not visited[j]:
-        print(j)
+for i in range(1, total+2):
+    if not visited[i]:
+        print(i)
         break
