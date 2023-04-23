@@ -9,18 +9,11 @@ for _ in range(p):
     l, n = input().split()
     if room:
         flag = 1
-
         for i in room:
-
             if len(i) == m:
                 continue
-
-            num = int(i[0][0])
-            maxV = min(num + 10, 500)
-            minV = max(1, num - 10)
-
             # 매칭가능한 방 있음
-            if minV <= int(l) <= maxV:
+            if int(i[0][0]) - 10 <= int(l) <= int(i[0][0]) + 10:
                 i.append([l,n])
                 flag = 0
                 break
@@ -29,7 +22,6 @@ for _ in range(p):
             room.append([[l, n]])
     else:
         room.append([[l,n]])
-
 
 for j in room:
     if len(j) == m:
