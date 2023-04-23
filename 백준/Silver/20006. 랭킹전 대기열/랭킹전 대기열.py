@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 p, m = map(int,input().split())
 # 플레이어수, 정원
 room = []
