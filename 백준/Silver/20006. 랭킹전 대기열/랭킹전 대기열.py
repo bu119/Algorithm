@@ -16,14 +16,8 @@ for _ in range(p):
                 continue
 
             num = int(i[0][0])
-            # maxV = min(num + 10, 500)
-            # minV = max(1, num - 10)
-            maxV = num+10
-            minV = num-10
-            if 500 < maxV:
-                maxV = 500
-            if minV < 1:
-                minV = 1
+            maxV = min(num + 10, 500)
+            minV = max(1, num - 10)
 
             # 매칭가능한 방 있음
             if minV <= int(l) <= maxV:
