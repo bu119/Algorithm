@@ -11,7 +11,13 @@ for _ in range(p):
         flag = 1
 
         for i in room:
+
+            if len(i) == m:
+                continue
+
             num = int(i[0][0])
+            # maxV = min(num + 10, 500)
+            # minV = max(1, num - 10)
             maxV = num+10
             minV = num-10
             if 500 < maxV:
@@ -20,7 +26,7 @@ for _ in range(p):
                 minV = 1
 
             # 매칭가능한 방 있음
-            if minV <= int(l) <= maxV and len(i) < m:
+            if minV <= int(l) <= maxV:
                 i.append([l,n])
                 flag = 0
                 break
