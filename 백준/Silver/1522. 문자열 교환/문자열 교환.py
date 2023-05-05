@@ -1,4 +1,7 @@
-arr = input()
+import sys
+input = sys.stdin.readline
+
+arr = input().strip()
 size = arr.count('a')
 arr += arr
 cnt = len(arr)
