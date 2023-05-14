@@ -5,26 +5,16 @@ blue = n - red
 
 ans = min(red, blue)
 
-cnt = 1
 for i in range(1, n):
     if arr[0] != arr[i]:
+        cnt = arr[i:].count(arr[0])
+        ans = min(ans, cnt)
         break
-    cnt += 1
 
-if arr[0] == 'R':
-    ans = min(ans, red - cnt)
-else:
-    ans = min(ans, blue - cnt)
-
-cnt = 1
 for i in range(n-2,-1,-1):
     if arr[n-1] != arr[i]:
+        cnt = arr[:i+1].count(arr[n-1])
+        ans = min(ans, cnt)
         break
-    cnt += 1
-
-if arr[n - 1] == 'R':
-    ans = min(ans, red - cnt)
-else:
-    ans = min(ans, blue - cnt)
 
 print(ans)
