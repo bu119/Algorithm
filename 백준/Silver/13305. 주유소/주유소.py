@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 road = list(map(int, input().split()))
 cost = list(map(int, input().split()))
