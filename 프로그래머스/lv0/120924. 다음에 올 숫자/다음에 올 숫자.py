@@ -1,12 +1,12 @@
 def solution(common):
-    n = len(common)
-    
-    d = common[1] - common[0]
-    if common[2] - common[1] == d:
+
+    a,b,c = common[:3]
+    d = b - a
+    if d == c-b:
         answer = common[-1] + d
-    
     else:
-        r = common[1] / common[0]
+        r = b / a
         answer = common[-1] * r
+    
     
     return answer
