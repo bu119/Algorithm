@@ -19,10 +19,8 @@ def bfs(posi):
 
             if i not in visited:
                 visited.add(i)
-                deq.append([i,time+1])
+                deq.append([i, time+1])
 
-
+                
 n, k = map(int, input().split())
-time = 0
-ans = bfs(n)
-print(ans)
+print(bfs(n))
