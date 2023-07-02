@@ -1,4 +1,6 @@
+import sys
 from collections import deque
+input = sys.stdin.readline
 
 def bfs(k):
     visited = [0] * (n + 1)
