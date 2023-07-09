@@ -17,24 +17,28 @@ def solution(new_id):
             # print("숫자와 문자들: ", new_id[i])
             
         elif new_id[i] == '.':
+            # 3. 마침표(.)가 2번 이상 연속이면
             if answer and answer[-1] != '.':
                 answer += new_id[i]
 
-        
+    # 4. 마침표(.)가 처음이나 끝에 위치한다면 제거
     if answer and (answer[0] == '.' or answer[-1] == '.'):
         answer = answer.strip('.')
     
+    # 5. 빈 문자열이라면
     if not answer:
         answer= 'a' * 3
-        
+
     n = len(answer) 
     
+    # 6. new_id의 길이가 16자 이상이면
     if 15 < n:
         answer = answer[:15]
     
+    # 6. 마침표(.)가 끝에 위치한다면
     if answer[-1] == '.':
         answer = answer.rstrip('.')
-    
+    # 7. 길이가 2자 이하라면,
     if n < 3:
         answer += answer[-1]*(3-n)
 
