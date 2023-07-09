@@ -38,9 +38,9 @@ def solution(new_id):
     # 6. 마침표(.)가 끝에 위치한다면
     if answer[-1] == '.':
         answer = answer.rstrip('.')
+        
     # 7. 길이가 2자 이하라면,
     if n < 3:
         answer += answer[-1]*(3-n)
-
 
     return answer
