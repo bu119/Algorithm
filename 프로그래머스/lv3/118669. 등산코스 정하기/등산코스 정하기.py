@@ -38,6 +38,7 @@ def dijkstra(n, gates):
         
         # 봉우리 나오면 봉우리와 현재까지 최소 intensity 값 저장
         if now in check_summits:
+            # min_intensity는 갱신되는 최솟값
             if visited[now] < min_intensity:
                 min_summit = now
                 min_intensity = visited[now]
