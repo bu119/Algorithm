@@ -9,14 +9,12 @@ def dijkstra(start, end, n):
 
     while heap:
         cost, now = heapq.heappop(heap)
-        
-        # 요금배열에 저장된 값 보다 적은 값의 요금이 등장하면 이후 거리도 갱신 
+
         if charge[now] < cost:
             continue
 
         for e, price in road_graph[now]:
             new_cost = cost + price
-             # 기존 거리 비용이랑 새로운 거리 비용을 더한 값이 저장된 요금보다 작을 때 값을 갱신
             if new_cost < charge[e]:
                 charge[e] = new_cost
                 heapq.heappush(heap, (new_cost, e))
