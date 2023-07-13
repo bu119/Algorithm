@@ -14,8 +14,7 @@ def makeBinary(num):
         return 1
     else:
         return 0
-    
-    
+
 def checkTree(binary, parent):
     mid = len(binary) // 2
     if binary:
