@@ -14,7 +14,7 @@ def dijkstra(k):
             continue
 
         for node, d in graph[now]:
-            new_dist = dist+d
+            new_dist = dist + d
             if new_dist < visited[node]:
                 visited[node] = new_dist
                 heapq.heappush(heap, (new_dist, node))
@@ -27,13 +27,13 @@ graph = [[] for _ in range(V+1)]
 
 for _ in range(E):
     u, v, w = map(int, input().split())
-    graph[u].append((v,w))
-    # graph[v].append((u,w))
+    graph[u].append((v, w))
 
-visited = [3000000]*(V + 1)
+visited = [3000000] * (V + 1)
+
 dijkstra(k)
 
-for i in range(1, V + 1):
+for i in range(1, V+1):
     if visited[i] == 3000000:
         print('INF')
     else:
