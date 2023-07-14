@@ -1,8 +1,9 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
 
 def dijkstra(k):
 
-    heap = [(0,k)]
+    heap = [(0, k)]
     visited[k] = 0
 
     while heap:
