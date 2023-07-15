@@ -1,41 +1,40 @@
 import sys, heapq
+
 input = sys.stdin.readline
+INF = int(1e9)
 
 n, m, k = map(int, input().split())
-
-graph = [[] for _ in range(n+1)]
-visited = [[] for _ in range(n+1)]
+graph = [[] for _ in range(n + 1)]
+visited = [[INF] * k for _ in range(n + 1)]
 
 for _ in range(m):
-    a, b, c = map(int,input().split())
-    graph[a].append((b,c))
+    a, b, c = map(int, input().split())
+    graph[a].append((b, c))
 
 
 def dijkstra():
-    heap = [(0,1)]
-    visited[1].append(0)
+    heap = []
+    visited[1][0] = 0
+    heapq.heappush(heap, (0, 1))
 
     while heap:
-
         now_time, city = heapq.heappop(heap)
 
+        if visited[city][k - 1] < now_time:
+            continue
+
         for node, new in graph[city]:
-            new_time = now_time + new
-
-            if not visited[node] or len(visited[node]) < k:
-                heapq.heappush(visited[node], -new_time)
-                heapq.heappush(heap, (new_time, node))
-
-            elif new_time < -visited[node][0]:
-                heapq.heappop(visited[node])
-                heapq.heappush(visited[node], -new_time)
-                heapq.heappush(heap, (new_time, node))
+            cost = now_time + new
+            if cost < visited[node][k - 1]:
+                visited[node][k-1] = cost
+                visited[node].sort()
+                heapq.heappush(heap, (cost, node))
 
 
 dijkstra()
 
-for j in range(1,n+1):
-    if len(visited[j]) < k:
+for i in range(1, n + 1):
+    if visited[i][k - 1] == INF:
         print(-1)
     else:
-        print(-visited[j][0])
+        print(visited[i][k - 1])
