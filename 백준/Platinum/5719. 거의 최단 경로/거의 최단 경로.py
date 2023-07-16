@@ -62,13 +62,15 @@ while True:
     graph = [[] for _ in range(n)]
     graph_rev = [[] for _ in range(n)]
 
-    visited = [0]*m
-
     for i in range(m):
         u, v, p = map(int,input().split())
         # i번 도로
         graph[u].append((v, p, i))
         graph_rev[v].append((u, p, i))
+
+    
+    # 도로 번호로 방문 체크
+    visited = [0] * m
 
     # 최단 거리 저장
     dist = [INF] * n
