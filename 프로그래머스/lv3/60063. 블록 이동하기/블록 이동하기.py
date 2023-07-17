@@ -1,6 +1,5 @@
 from collections import deque
 
-
 def solution(board):
     n = len(board)
 
@@ -50,13 +49,13 @@ def solution(board):
                         visited.add((nx1, y1, x1, y1))
                         visited.add((x1, y1, nx1, y1))
                         deq.append((nx1, y1, x1, y1, cnt + 1))
-                    
+
                     # 오른쪽 기준점 (x2,y2 기준점)
                     if (nx2, y2, x2, y2) not in visited:
                         visited.add((nx2, y2, x2, y2))
                         visited.add((x2, y2, nx2, y2))
                         deq.append((nx2, y2, x2, y2, cnt + 1))
-            
+
             # 세로로 있을 때
             if y1 == y2:
                 ny1 = y1 + k
