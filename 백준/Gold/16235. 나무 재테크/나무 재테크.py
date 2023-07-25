@@ -1,7 +1,6 @@
 import sys
 input = sys.stdin.readline
 
-
 def spring_summer():
     global tree, nutrient
 
@@ -15,7 +14,7 @@ def spring_summer():
                     if age <= nutrient[i][j]:
                         # 나이만큼 양분을 먹
                         nutrient[i][j] -= age
-                        live.append(age+1)
+                        live.append(age + 1)
                     else:
                         # 여름
                         cnt += (age // 2)
@@ -23,8 +22,8 @@ def spring_summer():
                 tree[i][j] = live
 
 
-def autumn():
-    global tree, nutrient
+def autumn_winter():
+    global tree, nutrient, arr
 
     for i in range(n):
         for j in range(n):
@@ -37,15 +36,9 @@ def autumn():
                             nj = j + dj
                             if 0 <= ni < n and 0 <= nj < n:
                                 tree[ni][nj].append(1)
-
-
-def winter():
-    global arr, nutrient
-
-    for i in range(n):
-        for j in range(n):
+            # 겨울
             nutrient[i][j] += arr[i][j]
-
+            
 
 n, m, k = map(int, input().split())
 
@@ -56,6 +49,7 @@ for _ in range(m):
     x, y, z = map(int, input().split())
     tree[x-1][y-1].append(z)
 
+# 양분
 nutrient = [[5]*n for _ in range(n)]
 
 year = 0
@@ -63,8 +57,7 @@ die = []
 while year != k:
 
     spring_summer()
-    autumn()
-    winter()
+    autumn_winter()
 
     year += 1
 
