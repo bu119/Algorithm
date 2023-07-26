@@ -1,10 +1,13 @@
-n, m = map(int, input().split())
+import sys
+input = sys.stdin.readline
 
-listen = set(input() for _ in range(n))
-see = set(input() for _ in range(m))
+n, m = map(int, input().split())
+listen = set(input().rstrip() for _ in range(n))
+see = set(input().rstrip() for _ in range(m))
 
 ans = list(listen & see)
 ans.sort()
+
 print(len(ans))
 for name in ans:
     print(name)
