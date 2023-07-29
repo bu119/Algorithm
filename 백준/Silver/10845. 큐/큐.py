@@ -3,14 +3,14 @@ from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
-queue = deque()
+queue = []
 
 for _ in range(n):
     case = input().rstrip()
 
     if case == 'pop':
         if queue:
-            print(queue.popleft())
+            print(queue.pop(0))
         else:
             print(-1)
     elif case == 'size':
@@ -30,6 +30,5 @@ for _ in range(n):
             print(int(queue[-1]))
         else:
             print(-1)
-
     else:
         queue.append(int(case.split()[1]))
