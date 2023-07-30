@@ -1,10 +1,10 @@
 import sys, heapq
 input = sys.stdin.readline
 
-n = int(input())
-
 def solution():
+    n = int(input())
     heap = []
+    
     for _ in range(n):
         x = int(input())
 
