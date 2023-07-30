@@ -1,26 +1,21 @@
-import sys
-input = sys.stdin.readline
-
 n = int(input())
 arr = [int(input()) for _ in range(n)]
 stack = []
 ans = ''
-i = 0
-while arr:
-    i += 1
+i = 1
 
-    if i > n:
+for num in arr:
+
+    while i <= num:
+        stack.append(i)
+        ans += '+'
+        i += 1
+
+    if stack.pop() != num:
         print('NO')
         exit()
 
-    stack.append(i)
-    ans += '+'
-
-    while stack and arr and arr[0] == stack[-1]:
-        ans += '-'
-        arr.pop(0)
-        stack.pop()
-
+    ans += '-'
 
 for k in ans:
     print(k)
