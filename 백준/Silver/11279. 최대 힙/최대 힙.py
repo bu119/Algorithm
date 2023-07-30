@@ -2,7 +2,6 @@ import sys, heapq
 input = sys.stdin.readline
 
 n = int(input())
-
 heap = []
 
 for _ in range(n):
@@ -13,6 +12,5 @@ for _ in range(n):
             print(-heapq.heappop(heap))
         else:
             print(0)
-
     else:
         heapq.heappush(heap, -x)
