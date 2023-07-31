@@ -46,7 +46,8 @@ while road['A'] or road['B'] or road['C'] or road['D']:
 
             # 차량 시간 체크
             minV = min(minV, t)
-
+            
+            # 현재 교차로에 존재하는 차량 수 (각 도로 당 1) 
             if t <= currTime:
                 isDeadlock += 1
 
