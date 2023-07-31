@@ -2,10 +2,10 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-arr = set(map(int, input().split()))
+arr = set(input().split())
 
 m = int(input())
-check = list(map(int, input().split()))
+check = input().split()
 
 for i in check:
     if i in arr:
