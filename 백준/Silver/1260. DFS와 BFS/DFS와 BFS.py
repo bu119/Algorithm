@@ -1,6 +1,6 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
+
 
 def dfs(v):
     visited[v] = 1
@@ -10,20 +10,21 @@ def dfs(v):
         if not visited[node]:
             dfs(node)
 
+
 def bfs(v):
-    deq = deque()
-    deq.append(v)
+    queue = []
+    queue.append(v)
     visited[v] = 1
 
-    while deq:
-        v = deq.popleft()
+    while queue:
+        v = queue.pop(0)
 
         print(v, end=' ')
 
         for node in sorted(graph[v]):
             if not visited[node]:
                 visited[node] = 1
-                deq.append(node)
+                queue.append(node)
 
 
 n, m, v = map(int, input().split())
