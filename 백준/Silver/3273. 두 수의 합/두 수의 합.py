@@ -6,15 +6,15 @@ cnt = 0
 start = 0
 end = n-1
 
-while start < end and end < n:
+while start < end:
     ssum = arr[start] + arr[end]
-
-    if ssum == x:
-        cnt += 1
 
     if ssum < x:
         start += 1
         continue
+        
+    if ssum == x:
+        cnt += 1
 
     end -= 1
 
