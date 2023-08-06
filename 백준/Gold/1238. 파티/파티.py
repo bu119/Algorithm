@@ -1,12 +1,9 @@
-# 파티에 참석하기 위해 걸어가서 다시 그들의 마을로 돌아와야
-# 도로들은 단방향
-# 가장 많은 시간을 소비하는 학생
-# 모든 학생들은 집에서 X에 갈수 있고, X에서 집으로 돌아올 수 있
-import heapq
+import sys, heapq
+input = sys.stdin.readline
 
 def dijkstra(start):
     visited = [100001]*(n+1)
-    heap = [(0,start)]
+    heap = [(0, start)]
     visited[start] = 0
 
     while heap:
@@ -32,16 +29,15 @@ for _ in range(m):
     # 단방향 도로
     graph[s].append((e,t))
 
+# 가장 오래 걸리는 학생 시간 저장
 ans = 0
 
 # x에서 출발하여 각 마을에 도착하는 최단시간 구하기
 startX = dijkstra(x)
-
 # 각 마을에서 x까지 최단시간 구하기
 for i in range(1,n+1):
     if i == x:
         continue
-
     total = dijkstra(i)[x] + startX[i]
     ans = max(ans, total)
 
