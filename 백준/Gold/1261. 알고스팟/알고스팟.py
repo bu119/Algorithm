@@ -2,7 +2,6 @@ import sys, heapq
 input = sys.stdin.readline
 
 def bfs(i,j, cnt):
-    global ans
 
     heap = [(cnt,i,j)]
     visited[i][j] = 1
@@ -18,17 +17,13 @@ def bfs(i,j, cnt):
             nj = j + dj[k]
             if 0 <= ni < n and 0 <= nj < m and not visited[ni][nj]:
                 visited[ni][nj] = 1
-
-                if board[ni][nj] == '0':
-                    heapq.heappush(heap, (cnt, ni, nj))
-                else:
-                    heapq.heappush(heap, (cnt+1, ni, nj))
+                # 벽이면 cnt에 1 더 해진다
+                heapq.heappush(heap, (cnt+board[ni][nj], ni, nj))
 
 
 m, n = map(int, input().split())
-board = [list(input()) for _ in range(n)]
+board = [list(map(int, input().strip())) for _ in range(n)]
 visited = [[0]*m for _ in range(n)]
-
 di = [0,1,0,-1]
 dj = [1,0,-1,0]
 
