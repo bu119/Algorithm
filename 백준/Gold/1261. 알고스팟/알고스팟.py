@@ -1,5 +1,4 @@
-import heapq
-import sys
+import sys, heapq
 input = sys.stdin.readline
 
 def bfs(i,j, cnt):
