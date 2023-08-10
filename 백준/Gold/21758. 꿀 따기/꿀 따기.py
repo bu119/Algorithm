@@ -1,26 +1,30 @@
+from itertools import combinations
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 arr = list(map(int, input().split()))
 # 두 마리 벌은 벌통으로 똑바로 날아가면서 지나가는 모든 칸에서 꿀을 딴다.
 # 벌이 시작한 장소에서는 어떤 벌도 꿀을 딸 수 없다.
-total = sum(arr)
+ans = 0
+# 완전 탐색
+idx = list(combinations(range(n),2))
 
-moveB = total * 2 - arr[0]*2 - arr[1]*2
-moveBarrel = total - arr[0] - arr[n-1] # 더하기 꿀벌 위치
-moveA = total - arr[1] - arr[n-1] + arr[0]
+# 꿀통 인덱스 k
+for k in range(n):
+    for a,b in idx:
+        # a < b
+        if k == a or k == b:
+            continue
+        if k < a:
+            # k a b
+            ans = max(ans, sum(arr[k:a]) + sum(arr[k:b]) - arr[a])
 
-ans = max(moveA, moveB, moveBarrel+arr[1])
-
-for m in range(2,n-1):
-    # 벌A 벌B(이동) 꿀통
-    moveB = moveB - arr[m]*2 + arr[m-1]
-
-    # 꿀통 벌A(이동) 벌B
-    moveA = moveA + arr[m - 1] * 2 - arr[m]
-
-    # 벌A 꿀통(이동) 벌B
-    # 꿀통 위치만 두번 더 해진다.
-    # moveBarrel+arr[m]
-
-    ans = max(ans, moveA, moveB, moveBarrel+arr[m])
+        elif b < k:
+            # a b k
+            ans = max(ans, sum(arr[a+1:k+1]) + sum(arr[b+1:k+1]) - arr[b])
+        else:
+            # a k b
+            ans = max(ans, sum(arr[a+1:k+1]) + sum(arr[k:b]))
 
 print(ans)
