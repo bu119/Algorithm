@@ -1,23 +1,30 @@
+from itertools import combinations
+import sys
+input = sys.stdin.readline
+
 n = int(input())
-honey = list(map(int, input().split()))
-reversedHoney = honey[::-1]
-total = sum(honey[1:n-1])
+arr = list(map(int, input().split()))
+# 두 마리 벌은 벌통으로 똑바로 날아가면서 지나가는 모든 칸에서 꿀을 딴다.
+# 벌이 시작한 장소에서는 어떤 벌도 꿀을 딸 수 없다.
+ans = 0
+# 완전 탐색
+idx = list(combinations(range(n),2))
 
-# 벌A 꿀통(이동) 벌B
-# 꿀통 위치만 두번 더 해진다.
-# 사이 값중 최대값만 비교
-moveBarrel = total + max(honey[1:n-1])
-# 벌A 벌B(이동) 꿀통
-moveB = total * 2 - honey[1]*2 + honey[n-1]*2
-# 꿀통 벌A(이동) 벌B (벌B 벌A(이동) 꿀통)
-moveA = total * 2 - reversedHoney[1]*2 + reversedHoney[n-1]*2
+# 꿀통 인덱스 k
+for k in range(n):
+    for a,b in idx:
+        # a < b
+        if k == a or k == b:
+            continue
+        if k < a:
+            # k a b
+            ans = max(ans, sum(arr[k:a]) + sum(arr[k:b]) - arr[a])
 
-ans = max(moveA, moveB, moveBarrel)
-
-for m in range(2, n-1):
-    moveB += honey[m-1] - honey[m]*2
-    moveA += reversedHoney[m-1] - reversedHoney[m]*2
-
-    ans = max(ans, moveB, moveA)
+        elif b < k:
+            # a b k
+            ans = max(ans, sum(arr[a+1:k+1]) + sum(arr[b+1:k+1]) - arr[b])
+        else:
+            # a k b
+            ans = max(ans, sum(arr[a+1:k+1]) + sum(arr[k:b]))
 
 print(ans)
