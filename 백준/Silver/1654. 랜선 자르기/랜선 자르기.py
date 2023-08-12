@@ -21,5 +21,4 @@ def binary_search(start, end):
 
 k, n = map(int,input().split())
 lan = [int(input()) for _ in range(k)]
-lan.sort()
-print(binary_search(1, lan[-1]))
+print(binary_search(1, max(lan)))
