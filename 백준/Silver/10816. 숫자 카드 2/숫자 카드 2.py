@@ -5,13 +5,13 @@ check = list(map(int,input().split()))
 
 findNum = {}
 for num in card:
-    if findNum.get(num):
+    if num in findNum:
         findNum[num] += 1
     else:
         findNum[num] = 1
 
 for find in check:
-    if findNum.get(find):
+    if find in findNum:
         print(findNum[find], end=' ')
     else:
         print(0, end=' ')
