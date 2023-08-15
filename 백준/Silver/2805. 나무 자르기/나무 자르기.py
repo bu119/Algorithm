@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def binary_search(start, end):
 
     while start <= end:
@@ -18,7 +21,7 @@ def binary_search(start, end):
 
 # 나무의 수 N과 상근이가 집으로 가져가려고 하는 나무의 길이 M
 n, m = map(int, input().split())
-trees = list(map(int, input().split()))
+trees = sorted(map(int, input().split()))
 start = 1
-end = max(trees)
+end = trees[-1]
 print(binary_search(start, end))
