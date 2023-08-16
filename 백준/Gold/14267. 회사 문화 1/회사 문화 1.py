@@ -1,30 +1,20 @@
 import sys
-sys.setrecursionlimit(10**6)
 input = sys.stdin.readline
 
-def dfs(v, w):
-    global compliment
-
-    for k in tree[v]:
-        compliment[k] += w
-        dfs(k, compliment[k])
-
-
 n, m = map(int, input().split())
-superior = list(map(int, input().split()))
-tree = [[] for _ in range(n+1)]
-compliment = [0]*(n+1)
+# 직원 번호 인덱스 통일
+superior = [0] + list(map(int, input().split()))
 
-for p in range(n):
-    # 부하직원 입력
-    super = superior[p]
-    if super > 0:
-        tree[super].append(p+1)
+compliment = [0]*(n+1)
 
 for _ in range(m):
     i, w = map(int, input().split())
     compliment[i] += w
 
-# 한번에 처리하기
-dfs(1, compliment[1])
-print(*compliment[1:])
+for i in range(1, n + 1):
+    # 사장이 아닐 때 칭찬 수치 계산
+    if i != 1:
+        # 상사가 가지고 있는 칭찬 수치를 부하직원에게 추가해줌
+        compliment[i] += compliment[superior[i]]
+        
+    print(compliment[i], end=' ')
