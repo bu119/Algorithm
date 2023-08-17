@@ -1,8 +1,9 @@
 from collections import deque
+import sys
+input = sys.stdin.readline
 
 n = int(input())
 cards = deque(range(1,n+1))
-move = []
 
 while len(cards) > 1:
     cards.popleft()
