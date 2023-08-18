@@ -4,7 +4,6 @@ input = sys.stdin.readline
 def bfs(v):
     check = set()
     visited = [0] * n
-
     stack = [v]
     visited[v] = 1
 
@@ -37,8 +36,8 @@ for i in range(n):
             graph[i].append(j)
             graph[j].append(i)
 
-# 경로가 가능한것은 이어져있기 때문있다.
-# 따라서 이러져 있는지만 판별하면된다.
+# 같은 도시를 여러 번 방문하는 것도 가능
+# 출발지를 시작으로 순서에 관계없이 각 여행지를 방문 가능한지만 체크
 plan = list(map(int, input().split()))
 set_plan = set(plan)
 
