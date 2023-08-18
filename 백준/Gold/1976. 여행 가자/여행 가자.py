@@ -1,18 +1,29 @@
 import sys
 input = sys.stdin.readline
 
-def dfs(v):
-    global check, visited
+def bfs(v):
+    check = set()
+    visited = [0] * n
+
+    stack = [v]
     visited[v] = 1
 
-    if v+1 in set_plan:
-        check.add(v+1)
+    while stack:
+        v = stack.pop()
 
-    for w in graph[v]:
-        if visited[w] == 0:
-            dfs(w)
+        if v+1 in set_plan:
+            check.add(v+1)
 
-            
+        if not set_plan-check:
+            return 'YES'
+
+        for w in graph[v]:
+            if visited[w] == 0:
+                visited[w] = 1
+                stack.append(w)
+    return 'NO'
+
+
 # 도시의 수
 n = int(input())
 # 여행 계획에 속한 도시들의 수
@@ -30,10 +41,5 @@ for i in range(n):
 # 따라서 이러져 있는지만 판별하면된다.
 plan = list(map(int, input().split()))
 set_plan = set(plan)
-visited = [0]*n
-check = set()
-dfs(plan[0]-1)
-if set_plan-check:
-    print('NO')
-else:
-    print('YES')
+
+print(bfs(plan[0]-1))
