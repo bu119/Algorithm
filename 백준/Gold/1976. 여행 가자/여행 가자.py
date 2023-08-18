@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def dfs(v):
     global check, visited
     visited[v] = 1
