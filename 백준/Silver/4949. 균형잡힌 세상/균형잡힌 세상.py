@@ -9,8 +9,7 @@ while True:
     if arr.count('(') != arr.count(')') or arr.count('[') != arr.count(']'):
         print('no')
         continue
-        
-    arr = ''.join(arr.split())
+
     check = ''
 
     for i in arr:
