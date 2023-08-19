@@ -6,7 +6,6 @@ while True:
     if arr == '.':
         break
 
-
     if arr.count('(') != arr.count(')') and arr.count('[') != arr.count(']'):
         print('no')
         continue
@@ -15,7 +14,7 @@ while True:
     check = ''
 
     for i in arr:
-        if i == '(' or i == ')' or i == '[' or i == ']':
+        if i in '()[]':
             check += i
 
     while "()" in check or "[]" in check:
