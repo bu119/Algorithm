@@ -11,14 +11,14 @@ while arr != '.':
         print('yes')
     else:
         for i in arr:
-            if i in '()[]':
+            if i == '(' or i == ')' or i == '[' or i == ']':
                 check += i
             n = len(check)
             if n > 1:
-                if check[n-2:n] == '()' or check[n-2:n] == '[]':
-                    check = check[:n-2]
+                if check[n - 2:n] == '()' or check[n - 2:n] == '[]':
+                    check = check[:n - 2]
 
-        if len(check):
+        if check:
             print('no')
         else:
             print('yes')
