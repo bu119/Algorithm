@@ -3,23 +3,26 @@ input=sys.stdin.readline
 
 while True:
     arr = input().rstrip()
-
     if arr == '.':
         break
 
-    check = ''
-    arr = ''.join(arr.split())
+
     if arr.count('(') != arr.count(')') and arr.count('[') != arr.count(']'):
         print('no')
         continue
+        
+    arr = ''.join(arr.split())
+    check = ''
 
     for i in arr:
         if i == '(' or i == ')' or i == '[' or i == ']':
             check += i
-        n = len(check)
-        if n > 1:
-            if check[n - 2:n] == '()' or check[n - 2:n] == '[]':
-                check = check[:n - 2]
+
+    while "()" in check or "[]" in check:
+        if "()" in check:
+            check = check.replace("()", "")
+        if "[]" in check:
+            check = check.replace("[]", "")
 
     if check:
         print('no')
