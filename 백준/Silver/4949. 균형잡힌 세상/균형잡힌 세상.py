@@ -1,4 +1,7 @@
-arr = input()
+import sys
+input=sys.stdin.readline
+
+arr = input().rstrip()
 while arr != '.':
 
     check = ''
@@ -20,4 +23,4 @@ while arr != '.':
         else:
             print('yes')
 
-    arr = input()
+    arr = input().rstrip()
