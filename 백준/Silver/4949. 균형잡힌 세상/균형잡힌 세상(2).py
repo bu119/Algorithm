@@ -3,13 +3,14 @@ input=sys.stdin.readline
 
 arr = input().rstrip()
 while arr != '.':
-
-    check = ''
+    
     arr = ''.join(arr.split())
 
     if len(arr) == 1:
         print('yes')
     else:
+        check = ''
+        
         for i in arr:
             if i == '(' or i == ')' or i == '[' or i == ']':
                 check += i
