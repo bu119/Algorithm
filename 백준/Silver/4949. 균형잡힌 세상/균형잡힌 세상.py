@@ -11,7 +11,7 @@ while arr != '.':
         print('yes')
     else:
         for i in arr:
-            if i == '(' or i == ')' or i == '[' or i == ']':
+            if i in '()[]':
                 check += i
             n = len(check)
             if n > 1:
