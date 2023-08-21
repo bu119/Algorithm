@@ -1,4 +1,3 @@
-from collections import deque
 from itertools import combinations
 import sys
 input = sys.stdin.readline
@@ -10,15 +9,15 @@ def bfs(v, group):
 
     visited = set()
     visited.add(v)
-    deq = deque()
-    deq.append(v)
-    while deq:
-        v = deq.popleft()
+    stack = [v]
+
+    while stack:
+        v = stack.pop()
 
         for w in graph[v]:
             if w in group and w not in visited:
                 visited.add(w)
-                deq.append(w)
+                stack.append(w)
 
     return visited == group
 
@@ -45,17 +44,17 @@ for k in range(1, n//2+1):
         g2 = list(setG2)
 
         if bfs(g1[0], setG1) and bfs(g2[0], setG2):
-            tmp = 0
+            diff = 0
             for p1 in g1:
-                tmp += population[p1-1]
+                diff += population[p1-1]
 
             for p2 in g2:
-                tmp -= population[p2-1]
+                diff -= population[p2-1]
 
-            if tmp == 0:
+            if diff == 0:
                 print(0)
                 exit()
-            minV = min(minV,abs(tmp))
+            minV = min(minV, abs(diff))
 
 if minV == 1001:
     print(-1)
