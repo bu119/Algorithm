@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def switch(bulb, cnt):
 
     for i in range(1, n):
@@ -16,9 +19,9 @@ def switch(bulb, cnt):
     return 100001
 
 
-n = int(input())
-state = list(input())
-result = list(input())
+n = int(input().rstrip())
+state = list(input().rstrip())
+result = list(input().rstrip())
 
 onOff = {'1': '0', '0': '1'}
 # 첫번째 스위치 안누르고 시작
