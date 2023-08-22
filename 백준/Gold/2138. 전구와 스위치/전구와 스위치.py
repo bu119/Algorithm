@@ -26,7 +26,7 @@ def change(bulb, cnt):
 
     if bulb[-1] == result[-1]:
         return cnt
-    return 100001
+    return -1
 
 
 n = int(input())
@@ -39,8 +39,8 @@ case1 = deepcopy(state)
 # 첫번째 스위치를 누르고 시작
 case2 = switch(0, state)
 
-ans = min(change(case1, 0), change(case2, 1))
-if ans == 100001:
-    print(-1)
+cnt = change(case1, 0)
+if cnt > -1:
+    print(cnt)
 else:
-    print(ans)
+    print(change(case2, 1))
