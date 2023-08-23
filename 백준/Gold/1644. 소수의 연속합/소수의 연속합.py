@@ -4,6 +4,7 @@ n = int(input())
 is_prime_num = [True] * (n+1)
 is_prime_num[0] = False
 is_prime_num[1] = False
+
 prime_num = []
 
 for i in range(2, n+1):
@@ -18,17 +19,16 @@ end = 0
 ssum = 0
 
 while True:
-    try:
-        if ssum == n:
-            cnt += 1
-
-        if ssum < n:
-            ssum += prime_num[end]
-            end += 1
-        else:
-            ssum -= prime_num[start]
-            start += 1
-    except:
+    if ssum >= n:
+        ssum -= prime_num[start]
+        start += 1
+    elif end == len(prime_num):
         break
+    else:
+        ssum += prime_num[end]
+        end += 1
+
+    if ssum == n:
+        cnt += 1
 
 print(cnt)
