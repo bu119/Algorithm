@@ -4,6 +4,7 @@ n = int(input())
 is_prime_num = [True] * (n+1)
 is_prime_num[0] = False
 is_prime_num[1] = False
+
 prime_num = []
 
 for i in range(2, n+1):
