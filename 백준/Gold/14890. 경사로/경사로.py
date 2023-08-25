@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 # 해당 행의 길이 지나갈 수 있는 길인지 판별
 def way(i, matrix):
     j = 0
