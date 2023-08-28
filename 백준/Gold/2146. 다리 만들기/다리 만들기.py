@@ -1,8 +1,9 @@
 from collections import deque
+import sys
+input = sys.stdin.readline
 
-# 1. 해안가 찾기 (bfs)
+
 def findCoast(i, j):
-
     coast = set()
     stack = [(i,j)]
     # 섬 방문 체크
