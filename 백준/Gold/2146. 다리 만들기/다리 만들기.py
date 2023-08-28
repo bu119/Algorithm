@@ -1,12 +1,14 @@
 from collections import deque
+import sys
+input = sys.stdin.readline
 
-# 1. 해안가 찾기 (bfs)
+# 1. 각 섬의 해안가 모두 찾기 (bfs)
 def findCoast(i, j):
 
     coast = set()
     stack = [(i,j)]
     # 섬 방문 체크
-    visited[i][j] = islandNum
+    visited[i][j] = 1
 
     while stack:
         i, j = stack.pop()
@@ -14,40 +16,26 @@ def findCoast(i, j):
         for k in range(4):
             ni = i + di[k]
             nj = j + dj[k]
-            if 0 <= ni < n and 0 <= nj < n and visited[ni][nj] != islandNum:
-                # 섬이면 방문 체크, 해안가에 맞닿은 바다도 미리 방문체크
-                visited[ni][nj] = islandNum
-                # 바다면 섬과 맞닿아 있는 바다면 위치, 다리 길이 개수 1로 초기화 하여 저장
+            if 0 <= ni < n and 0 <= nj < n and visited[ni][nj] == 0:
+                # 바다면 바다와 맞닿은 섬 저장
                 if ocean[ni][nj] == '0':
-                    coast.add((ni, nj, 1))
+                    coast.add((i,j))
                 else:
+                    # 섬이면 방문 체크
+                    visited[ni][nj] = 1
                     stack.append((ni,nj))
     return coast
 
 # 2. 해안가에서 다른 섬해안가 까지 최단거리 찾기
-def bfs(coast):
-    # 거리 저장
-    deq = deque(coast)
-
-    while deq:
-        x, y, dist = deq.popleft()
-
-        if dist >= minV:
-            return 10000
-
-        for k in range(4):
-            nx = x + di[k]
-            ny = y + dj[k]
-            # 구역안에 들어오고, 탐색을 시작하는 섬에서 방문 안했으면 탐색
-            if 0 <= nx < n and 0 <= ny < n and visited[nx][ny] != islandNum:
-                # 바다면 탐색
-                if ocean[nx][ny] == '0':
-                    visited[nx][ny] = islandNum
-                    deq.append((nx,ny, dist+1))
-                else:
-                    # 섬 만나면 거리 반환
-                    return dist
-    return 10000
+def findMindist(a, b):
+    global minV
+    for r1, c1 in island[a]:
+        for r2, c2 in island[b]:
+            size = abs(r1-r2) + abs(c1-c2) - 1
+            minV = min(minV,size)
+            if minV == 1:
+                print(1)
+                exit()
 
 
 n = int(input())
@@ -58,16 +46,18 @@ di = [0,1,0,-1]
 dj = [1,0,-1,0]
 minV = 10000
 # 섬에 번호를 붙여 구분한다.
-islandNum = 0
+island = []
 for i in range(n):
     for j in range(n):
         # 방문 안한 섬이면
         if ocean[i][j] == '1' and visited[i][j] == 0:
-            islandNum += 1
             # 해당 섬의 해안가 찾기
             coast = findCoast(i, j)
-            minV = min(minV, bfs(coast))
-            if minV == 1:
-                print(1)
-                exit()
+            island.append(list(coast))
+
+m = len(island)
+for a in range(m-1):
+    for b in range(a+1, m):
+        findMindist(a,b)
+
 print(minV)
