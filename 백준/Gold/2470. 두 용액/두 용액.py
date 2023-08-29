@@ -8,14 +8,18 @@ def two_pointer(n):
     # 투포인터 알고리즘
     while s < e:
         mixture = solution[s] + solution[e]
-        if minV == 0:
-            break
 
+        # 혼합값이 작으면 최솟값으로 갱신
         if abs(mixture) < minV:
             minV = abs(mixture)
             minS = solution[s]
             minE = solution[e]
-        elif mixture < 0:
+
+        # 혼합값이 0이 나오면 탐색 종료
+        if minV == 0:
+            break
+
+        if mixture < 0:
             s += 1
         else:
             e -= 1
