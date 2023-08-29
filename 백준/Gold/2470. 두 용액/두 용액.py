@@ -1,9 +1,9 @@
-def two_pointer():
+def two_pointer(n):
     s = 0
     e = n - 1
-    minV = abs(solution[s] + solution[e])
-    minS = solution[s]
-    minE = solution[e]
+    minV = 2000000001
+    minS = 0
+    minE = 0
 
     # 투포인터 알고리즘
     while s < e:
@@ -25,4 +25,4 @@ def two_pointer():
 
 n = int(input())
 solution = sorted(map(int, input().split()))
-two_pointer()
+two_pointer(n)
