@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def vps(case):
     stack = []
     for p in case:
@@ -16,5 +19,5 @@ def vps(case):
 
 t = int(input())
 for _ in range(t):
-    ps = input()
+    ps = input().rstrip()
     print(vps(ps))
