@@ -1,19 +1,5 @@
 from copy import deepcopy
 
-# 한 번의 이동은 보드 위에 있는 전체 블록을 상하좌우 네 방향 중 하나로 이동시키는 것이다.
-# 같은 값을 갖는 두 블록이 충돌하면 두 블록은 하나로 합쳐지게 된다.
-# 한 번의 이동에서 이미 합쳐진 블록은 또 다른 블록과 다시 합쳐질 수 없다.
-# 똑같은 수가 세 개가 있는 경우에는 이동하려고 하는 쪽의 칸이 먼저 합쳐진다.
-def is_join(pre_i, pre_j, cur_i, cur_j, check_board):
-    global new_board
-    # 합쳐질 수 있는지 판단
-    # 바로 앞 순서에서합쳐지지 않았으면
-    if new_board[pre_i][pre_j] == check_board[cur_i][cur_j]:
-        new_board[pre_i][pre_j] += check_board[cur_i][cur_j]
-        return True
-    return False
-
-
 def west_move(move_board):
     new_board = [[0]*n for _ in range(n)]
 
