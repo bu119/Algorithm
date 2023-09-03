@@ -17,15 +17,16 @@ for _ in range(t):
     minV = 20001
     maxV = 0
 
-    for posi in posi_dic.values():
-        n = len(posi)
-        if n < k:
-            continue
+    for value in posi_dic.values():
+        n = len(value)
+        if n >= k:
 
-        for s in range(n-k+1):
-            cnt = posi[s+k-1]-posi[s]+1
-            minV = min(minV, cnt)
-            maxV = max(maxV, cnt)
+            for s in range(n-k+1):
+                cnt = value[s+k-1]-value[s]+1
+                if minV > cnt:
+                    minV = cnt
+                if maxV < cnt:
+                    maxV = cnt
 
     if maxV:
         print(minV, maxV)
