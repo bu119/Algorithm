@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def two_pointer(n, arr):
     global minV, maxV
     s = 0
