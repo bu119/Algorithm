@@ -1,30 +1,17 @@
-def bfs(x):
+import sys
+input = sys.stdin.readline
+
+def dfs(v, start):
     global ans
 
-    tmp = set()
-    visited = [0] * n
-    # 한개씩만 쌀인다.
-    stack = [x]
-    visited[x] = 1
-    tmp.add(x)
-    while stack:
-        v = stack.pop()
+    if visited[v]:
+        if v == start:
+            ans |= tmp
+        return
 
-        w = graph[v]
-        # 사이클이 존재
-        if w == x:
-            # 합집합
-            ans = ans | tmp
-            return True
-
-        if visited[w]:
-            return False
-        # 방문 안했으면
-        visited[w] = 1
-        tmp.add(w)
-        stack.append(w)
-
-    return False
+    visited[v] = 1
+    tmp.add(v)
+    dfs(graph[v], start)
 
 
 n = int(input())
@@ -37,11 +24,12 @@ for _ in range(n):
     set_num.add(num)
 
 arr = list(set_num)
-
 ans = set()
 # 사이클이 존재하면 저장
 for i in arr:
-    bfs(i)
+    tmp = set()
+    visited = [0] * n
+    dfs(i, i)
 
 ans = sorted(ans)
 print(len(ans))
