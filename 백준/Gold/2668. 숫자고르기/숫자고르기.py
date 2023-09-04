@@ -4,34 +4,27 @@ input = sys.stdin.readline
 def dfs(v, start):
     global ans
 
-    if visited[v]:
+    if v in visited:
         if v == start:
-            ans |= tmp
+            ans |= visited
         return
 
-    visited[v] = 1
-    tmp.add(v)
+    visited.add(v)
     dfs(graph[v], start)
 
 
 n = int(input())
 
-graph = []
-set_num = set()
-for _ in range(n):
-    num = int(input()) - 1
-    graph.append(num)
-    set_num.add(num)
+graph = [0] + [int(input()) for _ in range(n)]
 
-arr = list(set_num)
-ans = set()
 # 사이클이 존재하면 저장
-for i in arr:
-    tmp = set()
-    visited = [0] * n
+ans = set()
+for i in range(1, n+1):
+    # 방문 체크
+    visited = set()
     dfs(i, i)
 
 ans = sorted(ans)
 print(len(ans))
 for j in ans:
-    print(j+1)
+    print(j)
