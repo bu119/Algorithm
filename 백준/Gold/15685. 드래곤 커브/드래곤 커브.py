@@ -1,17 +1,11 @@
 import sys
 input = sys.stdin.readline
 
-# 0세대는 주어진 선
-# 1세대는 0세대를 90도 회전후 연결한 2개로 이루어진 선
-# 2세대는 1세대를 90도 회전후 연결한 4개로 이루어진 선
-
 # 기존 선을 90도 회전하는 위치 저장 함수
 def move_90(li, lj):
     global move_d
     # 시작점을 마지막 지점으로 설정하고
-    # 마지막 지점의 방향부터 + 1을 해서 방향으로 추가해주면 된다.
-    # 마지막 지점 부터 반시계 방향으로 이동하고있다.
-    # +1 하면 반시계 방향이 된다. (이동 방향을 저장)
+    # 마지막 지점부터 + 1을 해서 반시계 방향으로 추가해주면 된다.
     m = len(move_d)
     for z in range(m-1, -1, -1):
         # k값 0, 1, 2, 3으로 나오게 변경
@@ -25,10 +19,18 @@ def move_90(li, lj):
             move_d.append(k)
             li = ni
             lj = nj
-        else:
-            break
 
     return li, lj
+
+
+# 정사각형인지 판별하는 함수
+def find_square():
+    ans = 0
+    for r in range(100):
+        for c in range(100):
+            if board[r][c] and board[r + 1][c] and board[r][c + 1] and board[r + 1][c + 1]:
+                ans += 1
+    return ans
 
 
 n = int(input())
@@ -57,10 +59,5 @@ for _ in range(n):
         # 마지막 위치를 return
         last_i, last_j = move_90(last_i, last_j)
 
-# 정사각형 개수 찾기
-ans = 0
-for r in range(100):
-    for c in range(100):
-        if board[r][c] and board[r + 1][c] and board[r][c + 1] and board[r + 1][c + 1]:
-            ans += 1
-print(ans)
+# 정사각형의 개수 찾기
+print(find_square())
