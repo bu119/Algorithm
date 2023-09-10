@@ -1,4 +1,6 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
+
 
 t = int(input())
 for _ in range(t):
@@ -10,7 +12,7 @@ for _ in range(t):
     for i in range(k):
         operation, n = input().split()
         n = int(n)
-
+        
         if operation == 'I':
             heapq.heappush(min_heap, (n, i))
             heapq.heappush(max_heap, (-n, i))
