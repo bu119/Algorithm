@@ -7,7 +7,7 @@ def move_shark():
     for row in range(r):
         for col in range(c):
             if sea[row][col]:
-                z, s, d = sea[row][col][0]
+                s, d, z = sea[row][col][0]
                 x = row
                 y = col
                 go = 0
@@ -25,14 +25,8 @@ def move_shark():
                         continue
 
                 # 큰 상어만 남기기
-                if ocean[x][y]:
-                    cur_z, cur_s, cur_d = ocean[x][y][0]
-                    if cur_z > z:
-                        continue
-                    else:
-                        ocean[x][y].pop()
-
-                ocean[x][y].append((z, s, d))
+                if not ocean[x][y] or ocean[x][y][0][2] < z:
+                    ocean[x][y] = [(s, d, z)]
 
     return ocean
 
@@ -43,7 +37,7 @@ def catch_shark(j):
     for i in range(r):
         if sea[i][j]:
             # 상어를 잡는다.
-            z, s, d = sea[i][j].pop()
+            s, d, z = sea[i][j].pop()
             return z
     return 0
 
@@ -58,9 +52,9 @@ dj = [0, 0, 0, 1, -1]
 boundary = {1:2, 2:1, 3:4, 4:3}
 
 for _ in range(m):
-    # (r, c)는 상어의 위치, s는 속력, d는 이동 방향, z는 크기이다.
+    # (rr, cc)는 상어의 위치, s는 속력, d는 이동 방향, z는 크기이다.
     rr, cc, s, d, z = map(int, input().split())
-    sea[rr-1][cc-1].append((z, s, d))
+    sea[rr-1][cc-1].append((s, d, z))
 
 fishing = 0
 for j in range(c):
