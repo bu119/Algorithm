@@ -15,25 +15,26 @@ def move_shark():
                 while go < s:
                     nx = x + di[d]
                     ny = y + dj[d]
+                    # 맵 내부에서 이동하는 경우
                     if 0 <= nx < r and 0 <= ny < c:
                         x, y = nx, ny
                         go += 1
-                    # 벽과 충돌, 방향전환
+                    # 벽과 충돌하는 경우, 방향전환
                     else:
                         d = boundary[d]
                         continue
+
+                # 큰 상어만 남기기
+                if ocean[x][y]:
+                    cur_z, cur_s, cur_d = ocean[x][y][0]
+                    if cur_z > z:
+                        continue
+                    else:
+                        ocean[x][y].pop()
+
                 ocean[x][y].append((z, s, d))
+
     return ocean
-
-
-def shark_eat():
-    global sea
-    for row in range(r):
-        for col in range(c):
-            # 한 칸에 상어가 2마리 이상 있는 경우
-            if 1 < len(sea[row][col]):
-                sea[row][col].sort(reverse=True)
-                sea[row][col] = [sea[row][col][0]]
 
 
 def catch_shark(j):
@@ -57,7 +58,7 @@ dj = [0, 0, 0, 1, -1]
 boundary = {1:2, 2:1, 3:4, 4:3}
 
 for _ in range(m):
-    # (rr, cc)는 상어의 위치, s는 속력, d는 이동 방향, z는 크기이다.
+    # (r, c)는 상어의 위치, s는 속력, d는 이동 방향, z는 크기이다.
     rr, cc, s, d, z = map(int, input().split())
     sea[rr-1][cc-1].append((z, s, d))
 
@@ -67,6 +68,4 @@ for j in range(c):
     fishing += catch_shark(j)
     # 상어가 이동한다.
     sea = move_shark()
-    # 큰 상어가 먹는다
-    shark_eat()
 print(fishing)
