@@ -84,6 +84,5 @@ ans = 0
 for k in range(4):
     # s극 이면 해당 점수를 더한다.
     # N극은 0, S극은 1
-    if cogwheel[k][0]:
-        ans += 2**k
+    ans += cogwheel[k][0] * (2**k)
 print(ans)
