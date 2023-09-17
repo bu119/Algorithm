@@ -1,4 +1,6 @@
 from collections import deque
+import sys
+input = sys.stdin.readline
 
 # 옆에 톱니바퀴가 같은 극인지 다른 극인지 확인하기
 def check_right(cur_wheel, cur_dir):
@@ -42,6 +44,7 @@ def turn_wheel():
     global cogwheel, move_dir
 
     for i in range(4):
+
         # 0이면 회전 없음
         if move_dir[i] == 0:
             continue
@@ -55,7 +58,7 @@ def turn_wheel():
 
 
 # 톱니바퀴 정보 저장
-cogwheel =[deque(map(int,input())) for _ in range(4)]
+cogwheel =[deque(map(int, input().rstrip())) for _ in range(4)]
 # 방향 변화
 change_dir = {1: -1, -1: 1}
 
