@@ -1,4 +1,7 @@
 from itertools import combinations
+import sys
+input = sys.stdin.readline
+
 
 def bfs(i, j):
     stack = [(i, j)]
