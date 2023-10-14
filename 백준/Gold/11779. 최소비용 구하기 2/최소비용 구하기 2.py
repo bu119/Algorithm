@@ -1,5 +1,5 @@
-import heapq
-
+import sys, heapq
+input = sys.stdin.readline
 def dijkstra(start, end):
     global route
     # 비용 저장
