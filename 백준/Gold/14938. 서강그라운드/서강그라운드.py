@@ -1,4 +1,5 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
 
 def dijkstra(start):
     # 최소 거리, 위치
@@ -21,9 +22,6 @@ def dijkstra(start):
                 heapq.heappush(heap,(sumDist, next))
 
                 
-# 각 지점에서 최소거리를 구한다. (다익스트라)
-# 최소거리가 m이하인 지점의 아이템을 더한다.
-# 각 점의 아이템을 더한 값을 비교하여 최소값을 찾는다.
 n, m, r = map(int, input().split())
 items = [0] + list(map(int, input().split()))
 graph = [[] for _ in range(n + 1)]
@@ -38,6 +36,7 @@ for i in range(1,n+1):
     getItem = set()
     # 거리 저장
     visited = [m+1]*(n+1)
+    # 최소 거리 구하기
     dijkstra(i)
     # 아이템 최대 개수
     totalItems = 0
