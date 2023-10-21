@@ -7,18 +7,17 @@ class Solution {
         int minV = Integer.parseInt(arr[0]);
         
         for (int i=1; i < arr.length;i++){
+            
             int num = Integer.parseInt(arr[i]);
             
             if (maxV < num) {
                 maxV = num;
             }
-            
             if (minV > num) {
                 minV = num;
             }
-            
         }
         
-        return  Integer.toString(minV) + " " + Integer.toString(maxV);
+        return  minV + " " + maxV;
     }
 }
