@@ -1,12 +1,15 @@
-# 소수 찾기
-def is_prime_number(x):
-    # 2부터 x의 제곱근까지의 모든 수를 확인하며
-    for k in range(2, int(x**(1/2) + 1)):
-        # x가 해당 수로 나누어 떨어진다면
-        if x % k == 0:
-            return False # 소수가 아니다.
-    return True # 소수이다.
+import math
 
+n = 123456*2
+prime_number = [True] * (n + 1)
+
+# 에라토스테네스의 체 알고리즘 수행
+for i in range(2, int(math.sqrt(n)) + 1):
+    if prime_number[i] == True:
+        j = 2
+        while i * j <= n:
+            prime_number[i * j] = False
+            j += 1
 
 while True:
     n = int(input())
@@ -16,7 +19,7 @@ while True:
 
     cnt = 0
     for i in range(n+1, 2*n+1):
-        if is_prime_number(i):
+        if prime_number[i]:
             cnt += 1
 
     print(cnt)
