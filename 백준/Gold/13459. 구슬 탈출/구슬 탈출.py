@@ -11,6 +11,7 @@ def leanBalls(x, y, k):
     # 위치와 이동거리 반환
     return x, y, distance
 
+
 def bfs(rx, ry, bx, by):
     deq = deque()
     # 횟수, 빨간 구슬 위치, 파란 구슬 위치
@@ -23,11 +24,8 @@ def bfs(rx, ry, bx, by):
         cnt, rx, ry, bx, by = deq.popleft()
 
         # 10번 이하로 빨간 구슬을 빼내야한다.
-        if cnt > 10:
+        if cnt >= 10:
             return 0
-
-        if board[rx][ry] == "O":
-            return 1
 
         # 기울이기
         for k in range(4):
@@ -36,8 +34,11 @@ def bfs(rx, ry, bx, by):
             nbx, nby, bdist = leanBalls(bx, by, k)
 
             # 파란 구슬이 구멍에 들어가면 해당 경우는 탐색 안함
-            if board[nbx][nby] == "O":
+            if board[nbx][nby] == 'O':
                 continue
+                
+            if board[nrx][nry] == 'O':
+                return 1
 
             # 빨간 구슬, 파란 구슬 위치가 같으면 거리에 따라 늦게 온 구슬 한칸 뒤로 이동
             if nrx == nbx and nry == nby:
