@@ -1,4 +1,5 @@
 from collections import deque
+
 def bfs(x):
     totalCnt = 0
 
@@ -12,6 +13,9 @@ def bfs(x):
         if x == k:
             totalCnt += 1
             continue
+
+        if visited[k] != -1 and visited[k] < visited[x]:
+            return visited[k], totalCnt
 
         for nextX in [x-1, x+1, x*2]:
             if 0 <= nextX <= 100000 and (visited[nextX] == -1 or visited[x] + 1 == visited[nextX]):
