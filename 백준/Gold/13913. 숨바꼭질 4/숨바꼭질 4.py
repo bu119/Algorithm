@@ -1,5 +1,14 @@
 from collections import deque
 
+# 경로 찾기
+def path(posi, cnt):
+    course = []
+    for _ in range(cnt + 1):
+        course.append(posi)
+        posi = visited[posi]
+    return reversed(course)
+
+
 def bfs(v):
     deq = deque()
     deq.append((v, 0))
@@ -17,6 +26,7 @@ def bfs(v):
 
 
 n, k = map(int, input().split())
+
 if n > k:
     print(n-k)
     print(*range(n, k-1, -1))
@@ -25,11 +35,5 @@ else:
     visited = [-1] * 100001
     cnt = bfs(n)
     print(cnt)
-
-    # 경로 찾기
-    route = []
-    posi = k
-    for _ in range(cnt + 1):
-        route.append(posi)
-        posi = visited[posi]
-    print(*reversed(route))
+    route = path(k, cnt)
+    print(' '.join(map(str, route)))
