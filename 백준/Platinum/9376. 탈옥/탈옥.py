@@ -1,6 +1,5 @@
 from collections import deque
 
-
 # 최소 문의 위치를 저장해서 두 죄수 사이의 문 개수를 합집합 한다.
 def bfs(x, y):
     # 방문 체크
