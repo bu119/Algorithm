@@ -2,16 +2,15 @@ from collections import deque
 import sys
 input = sys.stdin.readline
 
-# 최소 문의 위치를 저장해서 두 죄수 사이의 문 개수를 합집합 한다.
 def bfs(x, y):
     # 방문 체크
     visited = [[-1] * (w+2) for _ in range(h+2)]
+    # 지나온 문의 최소 개수 저장
+    visited[x][y] = 0
 
     deq = deque()
     deq.append((x, y))
-
-    visited[x][y] = 0
-
+    
     while deq:
         x, y = deq.popleft()
 
@@ -69,7 +68,7 @@ for _ in range(t):
     for r in range(1, h+1):
         for c in range(1, w+1):
             if sg[r][c] != -1 and p1[r][c] != -1 and p2[r][c] != -1:
-                # 문에서 만났을 때
+                # 문에서 만났을 때 (문에서 3명이 다 같이 만나니까 2명의 문 개수는 빼기)
                 if prison[r][c] == "#":
                     minV = min(minV, sg[r][c] + p1[r][c] + p2[r][c] - 2)
                 else:
