@@ -1,8 +1,11 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
+
+INF = float('inf')
 
 def dijkstra(maxPrice):
     # 각 정점이 가질 수 있는 최소 비용 마다 총 누적 비용을 체크
-    visited = [[float('inf')] * (maxPrice + 1) for _ in range(n + 1)]
+    visited = [[INF] * (maxPrice + 1) for _ in range(n + 1)]
     # 전체 비용, 지나온 최저 비용, 현재 위치
     heap = [(0, price[1], 1)]
     # [위치][현재최소비용]
