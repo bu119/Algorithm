@@ -7,8 +7,7 @@ stack = []
 for char in string:
     stack.append(char)
     if last_char == char and stack[-m:] == explosion:
-        for _ in range(m):
-            stack.pop()
+        del stack[-m:]
 
 if stack:
     print("".join(stack))
