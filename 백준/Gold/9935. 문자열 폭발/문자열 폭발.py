@@ -1,11 +1,12 @@
 string = input() # mirkovC4nizCC44
 explosion = list(input()) # C4
 m = len(explosion)
+last_char = explosion[m-1]
 
 stack = []
-for s in string:
-    stack.append(s)
-    if stack[-m:] == explosion:
+for char in string:
+    stack.append(char)
+    if last_char == char and stack[-m:] == explosion:
         for _ in range(m):
             stack.pop()
 
