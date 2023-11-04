@@ -1,11 +1,10 @@
 string = input() # mirkovC4nizCC44
 explosion = list(input()) # C4
-n = len(string)
 m = len(explosion)
-stack = []
-for i in range(n):
-    stack.append(string[i])
 
+stack = []
+for s in string:
+    stack.append(s)
     if stack[-m:] == explosion:
         for _ in range(m):
             stack.pop()
