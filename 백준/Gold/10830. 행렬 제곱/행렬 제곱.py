@@ -16,6 +16,9 @@ def matrix_mul(m1, m2):
 def power(m, exponent):
     # 제곱수가 값이 1이 될 때까지 재귀
     if exponent == 1:
+        for x in range(n):
+            for y in range(n):
+                m[x][y] %= 1000
         return m
 
     # m^(p // 2)
@@ -35,6 +38,4 @@ matrix = [list(map(int, input().split())) for _ in range(n)]
 # 행렬 제곱 계산
 matrix_product = power(matrix, b)
 for row in matrix_product:
-    for col in row:
-        print(col % 1000, end=" ")
-    print()
+    print(*row)
