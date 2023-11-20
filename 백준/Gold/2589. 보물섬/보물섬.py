@@ -1,6 +1,7 @@
 from collections import deque
+import sys
+input = sys.stdin.readline
 
-# bfs deque
 # 두 보물 사이의 최단거리 찾는 함수
 def bfs(i, j):
     global maxTime
