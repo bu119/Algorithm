@@ -1,3 +1,6 @@
+import sys
+input=sys.stdin.readline
+
 n = int(input())
 # 대근이는 차가 터널에 들어가는 순서대로,
 daegeun = [input() for _ in range(n)]
