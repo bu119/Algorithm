@@ -20,15 +20,20 @@ n, m = map(int, input().split())
 god = dict()
 parent = list(range(n+1))
 ans = 0
+visited = set()
 edges = []
 for i in range(n):
     god[i+1] = list(map(int, input().split()))
 
 for _ in range(m):
     a, b = map(int, input().split())
+    visited.add((a, b))
+    visited.add((b, a))
     union(a, b)
 
 for g1, g2 in combinations(range(1, n+1), 2):
+    if (g1, g2) in visited:
+        continue
     x1, y1 = god[g1]
     x2, y2 = god[g2]
     edges.append((((x1-x2)**2 + (y1-y2)**2)**(1/2), g1, g2))
