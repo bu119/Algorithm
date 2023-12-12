@@ -24,17 +24,13 @@ for idx in range(n):
 
 parent = list(range(n))
 ans = 0
-
-planet_x = sorted(planets, key=lambda x: x[1])
-planet_y = sorted(planets, key=lambda x: x[2])
-planet_z = sorted(planets, key=lambda x: x[3])
-
-
 edges = []
-for i in range(n - 1):
-    edges.append((abs(planet_x[i + 1][1] - planet_x[i][1]), planet_x[i][0], planet_x[i + 1][0]))
-    edges.append((abs(planet_y[i + 1][2] - planet_y[i][2]), planet_y[i][0], planet_y[i + 1][0]))
-    edges.append((abs(planet_z[i + 1][3] - planet_z[i][3]), planet_z[i][0], planet_z[i + 1][0]))
+for i in range(1, 4):
+    # x, y, z 각 위치 마다 오름차순 정렬
+    planet = sorted(planets, key=lambda x: x[i])
+    # 이웃한 숫자의 차이 저장
+    for j in range(n-1):
+        edges.append((planet[j + 1][i] - planet[j][i], planet[j][0], planet[j + 1][0]))
 edges.sort()
 
 for cost, a, b in edges:
