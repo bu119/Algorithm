@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 # 부모 찾기
 def find(x):
     if parent[x] != x:
@@ -23,7 +26,7 @@ ans = 0
 edges = []
 for _ in range(m):
     u, v, d = map(int, input().split())
-    # 다른 성별 대학교만 저장
+    # 다른 성별 대학교 길만 저장
     if univ[u-1] != univ[v-1]:
         edges.append((d, u, v))
         # 학교 방문 체크
@@ -31,8 +34,10 @@ for _ in range(m):
         visited.add(v)
 
 # 모든 학교 연결 여부
+# 불가
 if len(visited) != n:
     ans = -1
+# 가능
 else:
     # 거리순으로 정렬
     edges.sort()
