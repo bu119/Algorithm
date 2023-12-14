@@ -22,13 +22,16 @@ univ = input().split()
 parent = list(range(n+1))
 # 연결된 길 세기
 road_cnt = 0
+# 최단 거리 저장
 ans = 0
 edges = []
 for _ in range(m):
     u, v, d = map(int, input().split())
     # 다른 성별 대학교 길만 저장
-    if univ[u-1] != univ[v-1]:
-        edges.append((d, u, v))
+    if univ[u-1] == univ[v-1]:
+        continue
+    edges.append((d, u, v))
+    
 # 거리순으로 정렬
 edges.sort()
 # 최단 거리 계산
