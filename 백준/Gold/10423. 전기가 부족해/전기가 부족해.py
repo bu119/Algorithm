@@ -16,7 +16,7 @@ def union(a, b):
 
 
 n, m, k = map(int, input().split())
-power_station = set(map(int, input().split()))
+power_station = list(map(int, input().split()))
 parent = list(range(n+1))
 # 도시에는 발전소가 반드시 하나만 연결되야하므로
 # 발전소의 부모는 다 0으로 초기화
@@ -31,7 +31,7 @@ for _ in range(m):
     if parent[u] == parent[v]:
         continue
     edges.append((w, u, v))
-    
+
 edges.sort()
 # 경로의 개수 = 전체 노드 - 발전소 노드
 road_cnt = n - len(power_station)
@@ -41,5 +41,8 @@ for cost, u, v in edges:
         union(u, v)
         ans += cost
         road_cnt -= 1
+    
+    if road_cnt == 0:
+        break
 
 print(ans)
