@@ -22,7 +22,7 @@ for i in range(m):
     edges.append((i+1, x, y))
 # 각 턴의 결과를 저장
 result = []
-while k != 0:
+while k > 0:
     parent = list(range(n+1))
     curr_result = 0
     cnt = 0
@@ -32,11 +32,11 @@ while k != 0:
             curr_result += cost
             cnt += 1
     if cnt == n-1:
-        result.append(curr_result)
+        result.append(str(curr_result))
     else:
-        result += [0]*k
+        result += ['0']*k
         break
     k -= 1
     edges.pop(0)
 
-print(' '.join(map(str, result)))
+print(' '.join(result))
