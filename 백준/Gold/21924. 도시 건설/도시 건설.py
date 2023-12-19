@@ -23,17 +23,20 @@ maxV = 0
 minV = 0
 # 최소 연결 도로 개수
 road_cnt = 0
+
 edges = []
 for _ in range(m):
     a, b, c = map(int, input().split())
     maxV += c
     edges.append((c, a, b))
 edges.sort()
+
 for cost, b1, b2 in edges:
     if find(b1) != find(b2):
         union(b1, b2)
         minV += cost
         road_cnt += 1
+        
 if road_cnt == n-1:
     print(maxV-minV)
 else:
