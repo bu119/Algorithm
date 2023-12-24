@@ -1,7 +1,6 @@
 from collections import deque
-import sys
-input = sys.stdin.readline
 
+# 거리 저장
 def bfs(sx, sy):
     global edges
     k_cnt = 0
