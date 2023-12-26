@@ -31,4 +31,6 @@ for _ in range(t):
             union(c1, c2)
             if c1 in connection and c2 in connection:
                 ans = 'YES'
+                # 모든 도시를 잇는 도로망이 존재하므로 p-q의 연결만 확인
+                break
     print(ans)
