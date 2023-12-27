@@ -18,7 +18,6 @@ def union(a, b):
 
 n, m = map(int, input().split())
 s, e = map(int, input().split())
-graph = [[] for _ in range(n+1)]
 parent = list(range(n+1))
 edges = []
 for _ in range(m):
