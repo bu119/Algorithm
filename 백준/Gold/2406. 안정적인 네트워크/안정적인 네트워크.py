@@ -38,6 +38,9 @@ for cost, c1, c2 in edges:
         c_cost += cost
         c_cnt += 1
         c_num.append((c1, c2))
+        # 안정적인 네트워크가 되면 (본사1 연결 제외)
+        if c_cnt == n - 2:
+            break
 
 print(c_cost, c_cnt)
 for num1, num2 in c_num:
