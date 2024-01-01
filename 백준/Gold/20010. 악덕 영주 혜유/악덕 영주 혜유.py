@@ -16,24 +16,18 @@ def union(a, b):
         parent[a] = b
 
 # 2.두 마을을 이동하는 최고 비용 구하기
-def bfs(v):
-    visited = [0] * n
-    visited[v] = 1
-    stack = [(v, 0)]
-    worst = 0
-    while stack:
-        v, move_cost = stack.pop()
+def dfs(v, road_cost):
+    global worst_cost
+    if worst_cost < road_cost:
+        worst_cost = road_cost
 
-        if worst < move_cost:
-            worst = move_cost
-
-        for next, w in graph[v]:
-            if not visited[next]:
-                visited[next] = 1
-                stack.append((next, move_cost + w))
-    return worst
+    for next, w in graph[v]:
+        if not visited[next]:
+            visited[next] = 1
+            dfs(next, road_cost + w)
 
 
+# 교역로는 양 방향으로 이동
 # 1.모든 마을과 마을을 연결하는 최소 비용
 # 2.두 마을을 이동하는 최단 경로의 최고 비용
 n, k = map(int, input().split())
@@ -60,6 +54,8 @@ worst_cost = 0
 for i in range(n):
     # 끝에서 이동해야 거리가 길다.
     if len(graph[i]) == 1:
-        worst_cost = max(bfs(i), worst_cost)
+        visited = [0] * n
+        visited[i] = 1
+        dfs(i, 0)
 print(best_cost)
 print(worst_cost)
