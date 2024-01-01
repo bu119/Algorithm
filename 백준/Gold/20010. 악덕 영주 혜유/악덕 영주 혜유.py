@@ -1,7 +1,7 @@
 import sys
 input = sys.stdin.readline
 
-# 1.모든 마을을 연결하는 최소 비용
+# 1.모든 마을을 연결하는 최소 비용 구하기
 def find(x):
     if parent[x] != x:
         parent[x] = find(parent[x])
@@ -34,7 +34,6 @@ def bfs(v):
     return worst
 
 
-# 교역로는 양 방향으로 이동
 # 1.모든 마을과 마을을 연결하는 최소 비용
 # 2.두 마을을 이동하는 최단 경로의 최고 비용
 n, k = map(int, input().split())
@@ -56,10 +55,11 @@ for cost, c1, c2 in edges:
         # 이동 가능한 마을과 비용 정보 저장
         graph[c1].append((c2, cost))
         graph[c2].append((c1, cost))
-# 2. 두 마을을 이동하는 최고 비용 저장
+# 두 마을을 이동하는 최고 비용 저장
 worst_cost = 0
 for i in range(n):
-    worst_cost = max(bfs(i), worst_cost)
-
+    # 끝에서 이동해야 거리가 길다.
+    if len(graph[i]) == 1:
+        worst_cost = max(bfs(i), worst_cost)
 print(best_cost)
 print(worst_cost)
