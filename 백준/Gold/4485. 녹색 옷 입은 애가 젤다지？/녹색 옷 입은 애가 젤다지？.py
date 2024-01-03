@@ -13,6 +13,9 @@ def dijkstra(i, j):
         if visited[i][j] < cost:
             continue
 
+        if i == n-1 and j == n-1:
+            return visited[n-1][n-1]
+
         for k in range(4):
             ni = i + di[k]
             nj = j + dj[k]
