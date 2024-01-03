@@ -1,4 +1,5 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
 
 def dijkstra(i, j):
     # 최대 잃을 수 있는 금액은 10*n*n
