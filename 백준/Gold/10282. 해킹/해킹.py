@@ -28,9 +28,11 @@ for _ in range(t):
     for _ in range(d):
         a, b, s = map(int, input().split())
         graph[b].append((a, s))
-
+    # 각 컴퓨터가 감염되는 최단 시간 저장
     visitedTime = dijkstra(c)
+    # 총 감염되는 컴퓨터 수 저장
     infectionCnt = 0
+    # 마지막 컴퓨터가 감염되기까지 걸리는 시간 저장
     infectionTime = 0
     for i in visitedTime:
         if i != 10000001:
