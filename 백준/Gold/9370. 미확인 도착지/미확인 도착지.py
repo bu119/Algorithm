@@ -38,9 +38,11 @@ for _ in range(tc):
             d -= 0.5
         graph[a].append((b, d))
         graph[b].append((a, d))
-    destination = sorted(int(input()) for _ in range(t))
+    destination = [int(input()) for _ in range(t)]
     visitedDist = dijkstra(s)
+    ans = []
     for i in destination:
         # g-h 도로를 지나면 출력
         if type(visitedDist[i]) != int:
-            print(i, end=" ")
+            ans.append(i)
+    print(" ".join(map(str, sorted(ans))))
