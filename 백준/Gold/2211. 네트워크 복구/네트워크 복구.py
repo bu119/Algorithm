@@ -17,7 +17,7 @@ def dijkstra(x):
             if totalT < visited[next]:
                 visited[next] = totalT
                 savePath[next] = x
-                heapq.heappush(heap,(totalT, next))
+                heapq.heappush(heap, (totalT, next))
     return savePath
 
 
@@ -31,11 +31,11 @@ for _ in range(m):
 maxV = 10*m+1
 savePaths = dijkstra(1)
 ans = set()
-for i in range(1, n+1):
+for i in range(2, n+1):
     j = savePaths[i]
-    if j != 0:
-        if (i, j) not in ans and (j, i) not in ans:
-            ans.add((i, j))
+    if j != 0 and (i, j) not in ans and (j, i) not in ans:
+        ans.add((i, j))
+        
 print(len(ans))
 for a, b in ans:
     print(a, b)
