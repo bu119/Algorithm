@@ -1,5 +1,6 @@
 def solution(friends, gifts):
     n = len(friends)
+    m = len(gifts)
     # {이름: 인덱스 ...}의 딕셔너리 형태로 저장
     friendsIdx = dict()
     for i in range(n):
@@ -9,9 +10,9 @@ def solution(friends, gifts):
     movingInfo = [[0]*n for _ in range(n)]
     # 선물 지수 저장
     giftIndex = [0]*n
-    for gift in gifts:
+    for j in range(m):
         # A: 준 사람, B: 받은 사람
-        A, B = gift.split()
+        A, B = gifts[j].split()
         # 행: 준 사람, 열: 받은 사람
         movingInfo[friendsIdx[A]][friendsIdx[B]] += 1
         # 준 사람 선물 지수 변동 (한번에 변경)
