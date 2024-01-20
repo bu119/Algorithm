@@ -1,12 +1,13 @@
 t = int(input())
 for _ in range(t):
     sound = input().split()
+    notFox = set()
     while True:
         animal = input()
         if animal == 'what does the fox say?':
             break
-        notFox = animal.split()[2]
-        animalCnt = sound.count(notFox)
-        for _ in range(animalCnt):
-            sound.remove(notFox)
-    print(' '.join(sound))
+        notFox.add(animal.split()[2])
+
+    for s in sound:
+        if s not in notFox:
+            print(s, end=' ')
