@@ -1,5 +1,29 @@
+import sys
+input = sys.stdin.readline
+
 t = int(input())
-dp = ['', '', '1', '7', '4', '2', '6', '8', '10', '18', '22']
+
+# 가장 작은 수
+# dp 활용
+dp = ['9'*17]*101
+dp[2] = '1'
+dp[3] = '7'
+dp[4] = '4'
+dp[5] = '2'
+dp[6] = '0'
+dp[7] = '8'
+dp[8] = '10'
+dp[9] = '18'
+dp[10] = '22'
+
+for i in range(11, 101):
+    dp[i] = int(dp[i])
+    for j in range(2, 8):
+        dpIJ = dp[i-j]
+        if dpIJ == '0':
+            dpIJ = '6'
+        dp[i] = min(int(dp[i]), int(dpIJ + dp[j]))
+    dp[i] = str(dp[i])
 
 for _ in range(t):
     n = int(input())
@@ -11,22 +35,8 @@ for _ in range(t):
         maxNum = '7' + (n // 2 - 1) * '1'
 
     # 가장 작은 수
-    if n <= 10:
-        minNum = dp[n]
-    else:
-        if n % 7 == 0:
-            minNum = '8' * (n // 7)
-        elif n % 7 == 1:
-            minNum = '10' + '8' * (n // 7 - 1)
-        elif n % 7 == 2:
-            minNum = '18' + '8' * (n // 7 - 1)
-        elif n % 7 == 3:
-            minNum = '200' + '8' * (n // 7 - 2)
-        elif n % 7 == 4:
-            minNum = '20' + '8' * (n // 7 - 1)
-        elif n % 7 == 5:
-            minNum = '28' + '8' * (n // 7 - 1)
-        elif n % 7 == 6:
-            minNum = '68' + '8' * (n // 7 - 1)
+    minNum = dp[n]
+    if n == 6:
+        minNum = 6
 
     print(minNum, maxNum)
