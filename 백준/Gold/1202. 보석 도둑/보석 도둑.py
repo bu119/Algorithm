@@ -13,7 +13,7 @@ for _ in range(n):
     else:
         jewels[m] = [v]
 # 보석 무게만 저장
-# 무게 큰 순으로 정렬 - 뒤에서 부터 pop하려고
+# 큰 순으로 정렬 - 뒤에서 부터 pop하려고
 jewelsW = sorted(jewels, reverse=True)
 
 # 각 가방에 담을 수 있는 최대 무게 C
@@ -21,8 +21,9 @@ bagWeight = [int(input()) for _ in range(k)]
 # 가방 작은 순
 bagWeight.sort()
 
+# 최대 가격 저장
 stealPrice = 0
-# 현재 가방에 담을 수 있는 보석 가격 저장
+# 현재 가방에 담을 수 있는 보석 가격 저장 (누적)
 steal = []
 # 작은 가방부터 탐색하여 가능한 보석 가격 모두 저장
 for i in range(k):
