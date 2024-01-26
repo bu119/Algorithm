@@ -1,12 +1,15 @@
 from collections import deque
+import sys
+input = sys.stdin.readline
 
 def rotation():
-    a.appendleft(a.pop())
-    conveyorBelt.appendleft(conveyorBelt.pop())
-    conveyorBelt[n] = False
-    conveyorBelt[n-1] = False
+    # 벨트가 로봇과 함께 회전한다.
+    a.rotate(1)
+    conveyorBelt.rotate(1)
 
 def moveRobot():
+    # 이동 전 내림
+    conveyorBelt[n - 1] = False
     for i in range(n-1, 0, -1):
         if a[i] > 0 and conveyorBelt[i-1] and not conveyorBelt[i]:
             # 이동하려는 칸에 로봇이 없으며, 내구도가 1 이상 남아 있어야 한다.
@@ -18,7 +21,8 @@ def moveRobot():
     if a[0] > 0:
         conveyorBelt[0] = True
         a[0] -= 1
-
+    # 이동 후 내림
+    conveyorBelt[n - 1] = False
     return a.count(0)
 
 
