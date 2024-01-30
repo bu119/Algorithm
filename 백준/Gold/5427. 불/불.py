@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def bfs(x, y):
     global fire, building
 
