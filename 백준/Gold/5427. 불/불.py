@@ -1,13 +1,11 @@
-from collections import deque
-
 def bfs(x, y):
     global fire, building
 
     visited = [[0]*w for _ in range(h)]
     visited[x][y] = 1
-    deq = deque()
-    deq.append((x, y))
-    while deq:
+    stack = [(x, y)]
+
+    while stack:
         # 퍼진 불 위치 저장
         newFire = []
         # 불 먼저 이동
@@ -20,10 +18,11 @@ def bfs(x, y):
                     building[nx][ny] = '*'
                     newFire.append((nx, ny))
         fire = newFire
-
+        
+        # 상근이 이동 위치 저장
+        newSG = []
         # 상근이 이동
-        for _ in range(len(deq)):
-            x, y = deq.popleft()
+        for x, y in stack:
 
             if x in {0, h-1} or y in {0, w-1}:
                 return visited[x][y]
@@ -33,7 +32,8 @@ def bfs(x, y):
                 ny = y + dy[k]
                 if 0 <= nx < h and 0 <= ny < w and building[nx][ny] == '.' and visited[nx][ny] == 0:
                     visited[nx][ny] = visited[x][y] + 1
-                    deq.append((nx, ny))
+                    newSG.append((nx, ny))
+        stack = newSG
 
     return 'IMPOSSIBLE'
 
