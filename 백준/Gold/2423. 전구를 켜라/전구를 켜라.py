@@ -1,4 +1,5 @@
-import heapq
+import sys, heapq
+input = sys.stdin.readline
 
 def dijkstra(x, y, turnCnt):
     # 돌린 횟수 저장
