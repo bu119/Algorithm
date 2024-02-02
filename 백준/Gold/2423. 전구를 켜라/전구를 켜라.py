@@ -1,20 +1,24 @@
-import sys, heapq
+from collections import deque
+import sys
 input = sys.stdin.readline
 
-def dijkstra(x, y, turnCnt):
+def bfs(x, y):
     # 돌린 횟수 저장
-    visited = [[250001] * m for _ in range(n)]
-    heap = [(turnCnt, x, y, graph[x][y])]
-    visited[x][y] = turnCnt
+    visited = [[-1] * m for _ in range(n)]
+    visited[x][y] = 0
+    # 처음 상태 바르게 변경
+    if graph[x][y] == '/':
+        visited[x][y] += 1
+        graph[x][y] = '\\'
 
-    while heap:
-        turnCnt, cx, cy, currState = heapq.heappop(heap)
+    deq = deque()
+    deq.append((x, y, graph[x][y]))
 
-        if visited[cx][cy] < turnCnt:
-            continue
+    while deq:
+        cx, cy, currState = deq.popleft()
 
-        if cx == n-1 and cy == m-1:
-            return turnCnt
+        if cx == n-1 and cy == m-1 and currState != '/':
+            return visited[cx][cy]
 
         # 평행 방향 제외
         if currState == '/':
@@ -25,19 +29,14 @@ def dijkstra(x, y, turnCnt):
         for k in direction:
             nx = cx + di[k]
             ny = cy + dj[k]
-            if 0 <= nx < n and 0 <= ny < m:
-                totalTurnCnt = turnCnt
-                nextState = graph[nx][ny]
-                if not canMove(k, currState, nextState):
-                    # 마지막 방향은 옳은 방향으로 이미 변경
-                    if nx == n-1 and ny == m-1:
-                        continue
-                    totalTurnCnt += 1
-                    nextState = changeState[nextState]
+            if 0 <= nx < n and 0 <= ny < m and visited[nx][ny] == -1:
 
-                if totalTurnCnt < visited[nx][ny]:
-                    visited[nx][ny] = totalTurnCnt
-                    heapq.heappush(heap, (totalTurnCnt, nx, ny, nextState))
+                if canMove(k, currState, graph[nx][ny]):
+                    visited[nx][ny] = visited[cx][cy]
+                    deq.appendleft((nx, ny, graph[nx][ny]))
+                else:
+                    visited[nx][ny] = visited[cx][cy] + 1
+                    deq.append((nx, ny, changeState[graph[nx][ny]]))
 
     return 'NO SOLUTION'
 
@@ -50,19 +49,6 @@ def canMove(d, state1, state2):
     else:
         return state1 != state2
 
-# 시작과 끝이 방향 변경 함수
-def changeEdge():
-    cnt = 0
-
-    if graph[0][0] == '/':
-        cnt += 1
-        graph[0][0] = '\\'
-
-    if graph[n - 1][m - 1] == '/':
-        cnt += 1
-        graph[n - 1][m - 1] = '\\'
-
-    return cnt
 
 n, m = map(int, input().split())
 graph = [list(input()) for _ in range(n)]
@@ -71,7 +57,5 @@ di = [-1, 1, 1, -1, 0, 1, 0, -1]
 dj = [1, 1, -1, -1, 1, 0, -1, 0]
 # 상태 변경
 changeState = {'/': '\\', '\\': '/'}
-# 시작과 끝 방향이 / 이면 먼저 \로 변경
-turnCnt = changeEdge()
 # 현재 위치, 돌린 횟수
-print(dijkstra(0, 0, turnCnt))
+print(bfs(0, 0))
