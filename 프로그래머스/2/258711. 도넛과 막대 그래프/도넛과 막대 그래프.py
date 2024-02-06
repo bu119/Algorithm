@@ -18,15 +18,16 @@ def solution(edges):
         # 나가는 선만 있는 연결 정점 (생성한 정점)
         if linkedCnt[v]['in'] == 0 and linkedCnt[v]['out'] >= 2:
             answer[0] = v
-            # 전체 그래프 개수 저장 (전체 - (막대 + 8자) = 도넛 그래프 개수)
-            answer[1] += linkedCnt[v]['out']
+            # 전체 그래프 개수 저장
+            answer[1] = linkedCnt[v]['out']
         # 나가는 선 0개 (막대 그래프 마지막 점) 
         elif linkedCnt[v]['out'] == 0:
             answer[2] += 1
-            answer[1] -= 1
         # 나가는 선 2개 (8자 그래프 중심 점)
         elif linkedCnt[v]['out'] == 2:
             answer[3] += 1
-            answer[1] -= 1
+            
+    # 전체 - (막대 + 8자) = 도넛 그래프 개수
+    answer[1] -= (answer[2] + answer[3])
 
     return answer
