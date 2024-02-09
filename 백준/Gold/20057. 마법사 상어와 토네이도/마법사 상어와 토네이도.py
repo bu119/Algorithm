@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 def flySand(d):
     # 알파면 비율 0으로 저장
     # 서
@@ -30,7 +33,7 @@ def tornado(k, x, y):
                 # 모래 없으면 패스
                 if currSand == 0:
                     continue
-                # 모래 날리기
+                # 모래 날리는 비율
                 sandRatio = flySand(k)
                 # 날리고 남은 모래 저장
                 remainingSand = currSand
