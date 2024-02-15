@@ -20,7 +20,8 @@ def bfs():
             # 진입차수가 0이 되면 deq에 삽입
             if indegree[j] == 0:
                 heapq.heappush(heap, j)
-    return order
+
+    return ' '.join(map(str, order))
 
 
 n, m = map(int, input().split())
@@ -32,7 +33,5 @@ for _ in range(m):
     a, b = map(int, input().split())
     graph[a].append(b)
     indegree[b] += 1
-    
-# 순서 저장
-result = bfs()
-print(" ".join(map(str, result)))
+
+print(bfs())
