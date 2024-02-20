@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 # 이항계수(nCk)계산 함수
 # 이항계수 계산: n * (n-1) * ... * (n-k+1) // k * (k-1) * ... * 1
 def nCk(n, k):
