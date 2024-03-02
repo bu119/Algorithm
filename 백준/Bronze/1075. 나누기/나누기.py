@@ -1,6 +1,6 @@
 n = int(input())
 f = int(input())
-n = (n//100) * 100
+n -= n % 100
 
 while n % f != 0:
     n += 1
