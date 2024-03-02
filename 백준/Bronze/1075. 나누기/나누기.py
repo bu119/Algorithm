@@ -1,13 +1,7 @@
 n = int(input())
 f = int(input())
+n = (n//100) * 100
 
-new = n - n % f
-if new < (n//100) * 100:
-    new = (new + f) % 100
-else:
-    new = (new % 100) % f
-
-if new < 10:
-    print('0' + str(new))
-else:
-    print(new)
+while n % f != 0:
+    n += 1
+print(str(n)[-2:])
