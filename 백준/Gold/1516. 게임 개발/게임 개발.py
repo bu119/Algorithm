@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 # 순서가 존재, 위상 정렬
 n = int(input())
 # 진입 차수 정보 저장 (1부터 시작)
