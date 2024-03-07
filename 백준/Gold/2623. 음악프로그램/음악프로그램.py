@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
 # 진입 차수 정보 저장 (1부터 시작)
 indegree = [0]*(n+1)
@@ -6,6 +9,7 @@ graph = [[] for _ in range(n+1)]
 
 for _ in range(m):
     num, *singers = list(map(int, input().split()))
+
     for i in range(num-1):
         a = singers[i]
         b = singers[i+1]
@@ -16,7 +20,7 @@ queue = []
 for i in range(1, n+1):
     if indegree[i] == 0:
         queue.append(i)
-        
+
 answer = []
 while queue:
     curr = queue.pop(0)
