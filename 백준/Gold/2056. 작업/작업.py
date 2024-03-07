@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 indegree = [0] * (n+1)
 graph = [[] for _ in range(n+1)]
