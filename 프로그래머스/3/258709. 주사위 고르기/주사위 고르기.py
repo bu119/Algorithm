@@ -26,14 +26,12 @@ def solution(dice):
     dice_num = dict()
     for i in range(n):
         # 숫자가 나오는 개수 저장 {숫자: 개수}
-        num_cnt = dict()
-        for j in range(6):
-            if dice[i][j] in num_cnt:
-                num_cnt[dice[i][j]] += 1
+        dice_num[i + 1] = dict()
+        for num in dice[i]:
+            if num in dice_num[i+1]:
+                dice_num[i+1][num] += 1
             else:
-                num_cnt[dice[i][j]] = 1
-        # 결과 저장
-        dice_num[i + 1] = num_cnt
+                dice_num[i+1][num] = 1
         
     # 주사위 번호
     case = set(range(1, n+1))
