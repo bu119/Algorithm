@@ -37,8 +37,10 @@ def solution(dice):
     case = set(range(1, n+1))
     # 주사위 반틈씩 선택 (1, 2, ..., n 중에 n//2개 뽑기)
     cases = list(combinations(case, n//2))
-    # 승리할 확률이 가장 높은 팀의 경우의 수, 승리할 확률이 가장 높은 팀
-    answer = [0, []]
+    # 승리할 확률이 가장 높은 팀의 경우의 수
+    winner_cnt = 0
+    # 승리할 확률이 가장 높은 팀
+    winner = []
 
     for i in range(len(cases)//2):
         # A, B 팀 주사위 번호 모음([1,2])
@@ -64,12 +66,12 @@ def solution(dice):
                 elif ssum_a < ssum_b:
                     win_b += winning_cnt
         # a팀의 이긴 횟수가 더 크면            
-        if answer[0] < win_a:
-            answer[0] = win_a
-            answer[1] = case_a
+        if winner_cnt < win_a:
+            winner_cnt = win_a
+            winner = case_a
         # b팀의 이긴 횟수가 더 크면    
-        if answer[0] < win_b:
-            answer[0] = win_b
-            answer[1] = case_b
+        if winner_cnt < win_b:
+            winner_cnt = win_b
+            winner = case_b
                     
-    return answer[1]
+    return winner
