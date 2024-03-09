@@ -16,30 +16,33 @@ def solution(dice):
                     team_b[ssum] = cnt
             return
         
-        for key, value in dices[case[k]].items():
+        # case[k]: 뽑은 주사위 번호 (dice_num[case[k]] = {숫자: 횟수})
+        for key, value in dice_num[case[k]].items():
             dfs(k+1, case, ssum + key, cnt*value, team)
 
             
     n = len(dice)
-    # 각 주사위 숫자 딕셔너리 형태로 저장 {번호:{1:2, 10:1, ...}}
-    dices = dict()
+    # 각 수가 나올 경우의 수 저장 {주사위 번호: {1:1, 숫자:개수, ...}...}
+    dice_num = dict()
     for i in range(n):
-        dices[i+1] = dict()
-        for num in dice[i]:
-            if num in dices[i+1]:
-                dices[i+1][num] += 1
+        # 숫자가 나오는 개수 저장 {숫자: 개수}
+        num_cnt = dict()
+        for j in range(6):
+            if dice[i][j] in num_cnt:
+                num_cnt[dice[i][j]] += 1
             else:
-                dices[i+1][num] = 1
-    
+                num_cnt[dice[i][j]] = 1
+        # 결과 저장
+        dice_num[i + 1] = num_cnt
+        
+    # 주사위 번호
     case = set(range(1, n+1))
-    # (1, 2, ..., n) 중에 n//2개 뽑기
+    # 주사위 반틈씩 선택 (1, 2, ..., n 중에 n//2개 뽑기)
     cases = list(combinations(case, n//2))
-    m = len(cases)
-    # 승리할 확률이 가장 높은 팀
-    max_win_team = []
-    # 승리할 확률이 가장 높은 팀의 경우의 수
-    max_win = 0
-    for i in range(m//2):
+    # 승리할 확률이 가장 높은 팀의 경우의 수, 승리할 확률이 가장 높은 팀
+    answer = [0, []]
+
+    for i in range(len(cases)//2):
         # A, B 팀 주사위 번호 모음([1,2])
         case_a = list(cases[i])
         case_b = sorted(case - set(case_a))
@@ -47,27 +50,28 @@ def solution(dice):
         team_a = dict()
         team_b = dict()
         # 선택한 각 주사위를 굴려서 나온 수의 합과 개수 구하기
+        # 주사위 굴린 횟수, 뽑은 주사위, 숫자 합, 경우의 수, 뽑은 팀
         dfs(0, case_a, 0, 1, 'a')
         dfs(0, case_b, 0, 1, 'b')
-        # 팀 a가 이긴 수
+        # 각 팀이 이긴 경우의 수 저장
         win_a = 0
-        # 팀 b가 이긴 수 저장
         win_b = 0
-        for a in team_a:
-            for b in team_b:
-                # 해당 경우의 수
-                winning_cnt = team_a[a] * team_b[b]
-                if a > b:
+        # 주사위 합 비교
+        for ssum_a in team_a:
+            for ssum_b in team_b:
+                # 해당 결과가 나올 경우의 수
+                winning_cnt = team_a[ssum_a] * team_b[ssum_b]
+                if ssum_a > ssum_b:
                     win_a += winning_cnt
-                elif a < b:
+                elif ssum_a < ssum_b:
                     win_b += winning_cnt
         # a팀의 이긴 횟수가 더 크면            
-        if max_win < win_a:
-            max_win = win_a
-            max_win_team = case_a
+        if answer[0] < win_a:
+            answer[0] = win_a
+            answer[1] = case_a
         # b팀의 이긴 횟수가 더 크면    
-        if max_win < win_b:
-            max_win = win_b
-            max_win_team = case_b
+        if answer[0] < win_b:
+            answer[0] = win_b
+            answer[1] = case_b
                     
-    return max_win_team
+    return answer[1]
