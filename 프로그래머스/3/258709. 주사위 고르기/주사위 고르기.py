@@ -20,9 +20,9 @@ def solution(dice):
         for key, value in dice_num[case[k]].items():
             dfs(k+1, case, ssum + key, cnt*value, team)
 
-            
+    # 주사위 개수        
     n = len(dice)
-    # 각 수가 나올 경우의 수 저장 {주사위 번호: {1:1, 숫자:개수, ...}...}
+    # 각 수가 나올 경우의 수 저장 {주사위 번호: {숫자: 개수, 3: 2, ...}...}
     dice_num = dict()
     for i in range(n):
         # 숫자가 나오는 개수 저장 {숫자: 개수}
