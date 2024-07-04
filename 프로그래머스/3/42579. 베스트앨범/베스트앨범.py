@@ -8,11 +8,13 @@
 
 def solution(genres, plays):
     answer = []
-    # 장르 재생 횟수
+    # 장르 재생 횟수 {"classic": 1000}
     genre_play_cnt = {}
-    # 장르에 해당하는 고유번호
+    # 장르에 해당하는 횟수, 고유번호 {"classic": [(-500, 0), (-1000,1)], "pop": [...], ..}
     genre_id = {}
+    
     n = len(genres)
+    
     for i in range(n):
         # 고유번호에 해당하는 장르
         if genres[i] in genre_id:
@@ -23,11 +25,13 @@ def solution(genres, plays):
             genre_id[genres[i]] = [(-plays[i], i)]
 
     # value 값으로 정렬: 내림차순
+    # [("classic", 1000), ("pop", 100),..]
     play = sorted(genre_play_cnt.items(), key=lambda x: x[1], reverse=True)
 
     # 가장 많이 재생된 순으로 탐색
-    for genre in play:
-        for cnt, music_id in sorted(genre_id[genre[0]])[:2]:
+    for genre, total in play:
+        # [(-1500, 0), (-1000,1)]
+        for cnt, music_id in sorted(genre_id[genre])[:2]:
             answer.append(music_id)
 
     return answer
