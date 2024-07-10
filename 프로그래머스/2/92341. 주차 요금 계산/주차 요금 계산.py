@@ -1,7 +1,7 @@
 # 출차된 내역이 없습니다. 따라서, 23:59에 출차된 것으로 간주
 # 차량별 누적 주차 시간을 계산하여 요금을 일괄로 정산합니다.
 # 차량 번호가 작은 자동차부터 청구할 주차 요금을 차례대로 정수 배열에 담아서 return
-import math
+from math import ceil
 
 def solution(fees, records):
     answer = []
@@ -16,11 +16,11 @@ def solution(fees, records):
     lastTime = 23*60 + 59 
     
     for record in records:
-        time, carNum, type = record.split()
+        time, carNum, status = record.split()
         hour, minute = map(int, time.split(':'))
         recordTime = hour*60 + minute
 
-        if type == 'IN':
+        if status == 'IN':
             # 입차
             # 주차 시작 시간 저장 
             inCar[carNum] = recordTime
@@ -37,6 +37,7 @@ def solution(fees, records):
             # 00:00 부터 가능하므로 -1로 주차 시작 시간 초기화 (주차 여러번 가능)
             inCar[carNum] = -1
 
+    # 출차된 내역이 없는 차량 시간 누적 및 요금 계산
     for i in sorted(inCar):
         # 출차된 내역이 없는 차량 
         if inCar[i] >= 0:
@@ -50,8 +51,8 @@ def solution(fees, records):
         # 출차 요금 계산
         parkingFee = basicFee
         if totalParkingTime[i] > 0:
-            # 계산할 전체 주차 추가 요금
-            parkingFee += math.ceil(totalParkingTime[i] / unitTime) * unitFee
+            # 계산할 전체 주차 추가 요금 (올림)
+            parkingFee += ceil(totalParkingTime[i] / unitTime) * unitFee
 
         answer.append(parkingFee)
 
