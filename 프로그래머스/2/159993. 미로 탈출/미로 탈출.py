@@ -43,13 +43,16 @@ def solution(maps):
     
     di = [0, 1, 0, -1]
     dj = [1, 0, -1, 0]
+    
     # 시작 점 찾기
     si, sj = findS(maps, n, m)
+    
     # 레버까지의 최단 거리와 위치 찾기
     minL, li, lj = bfs(maps, si, sj, "L")
     # 도착할 수 없으면 -1 반환
     if minL == -1:
         return -1
+    
     # 레버를 당기고
     # 출구까지의 최단 거리와 위치 찾기
     minE, ei, ej = bfs(maps, li, lj, "E")
