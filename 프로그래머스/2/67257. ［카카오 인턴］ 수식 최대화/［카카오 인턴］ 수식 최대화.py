@@ -7,7 +7,7 @@ from itertools import permutations
 from copy import deepcopy
 
 def solution(expression):
-    
+    # +, -, * 계산
     def calculation(a, b, operator):
         if operator == "+":
             return a + b
@@ -16,11 +16,11 @@ def solution(expression):
         else:
             return a * b
     
-    maxWinnings = 0
+    maxReward = 0
     
-    # +-*를 구분자로 수식을 분리하여 숫자 저장
+    # 숫자 순서대로 저장
     operands = list(map(int, expression.replace("+", " ").replace("-", " ").replace("*", " ").split()))
-    # 연산자 저장
+    # 연산자 순서대로 저장
     operators = []
     for i in expression:
         if i in ['+', '-', '*']:
@@ -38,16 +38,17 @@ def solution(expression):
                 # 연산자 k 위치 찾기
                 i = tmpOperators.index(k)
                 # 계산 결과
-                c = calculation(tmpOperands[i], tmpOperands[i+1], k)
+                result = calculation(tmpOperands[i], tmpOperands[i+1], k)
                 # i번째 새로운 숫자 대입
-                tmpOperands[i] = c
+                tmpOperands[i] = result
                 # i+1번쨰 숫자 삭제
                 tmpOperands.pop(i+1)
                 # i번째 연산자 삭제
                 tmpOperators.pop(i)
                 
         # 최대 상금 갱신    
-        result = abs(tmpOperands[0])
-        if maxWinnings < result:
-            maxWinnings = result
-    return maxWinnings
+        reward = abs(tmpOperands[0])
+        if maxReward < reward:
+            maxReward = reward
+            
+    return maxReward
