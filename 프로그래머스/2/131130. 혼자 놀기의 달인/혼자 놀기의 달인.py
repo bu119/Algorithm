@@ -25,21 +25,26 @@ def solution(cards):
     visited = [0] * n
     
     # 사이클 만들기
-    def dfs(x):
-        nonlocal cnt
-        if 0 < x <= n and visited[x] == 0:
-            visited[x] = 1
-            cnt += 1
-            # 숫자에 해당하는 상자 탐색
-            dfs(cards[x])
-    
+    def bfs(x):
+        cnt = 0
+        stack = [x]
+        
+        while stack:
+            x = stack.pop()
+            
+            if 0 < x <= n and visited[x] == 0:
+                visited[x] = 1
+                cnt += 1
+                # 숫자에 해당하는 상자 탐색
+                stack.append(cards[x])
+        return cnt
+            
+        
     # 차례대로 사이클 탐색
     for i in range(1, n):
         if visited[i] == 0:
-            # 현재 그룹의 상자 수 저장
-            cnt = 0
-            # 사이클 탐색
-            dfs(i)
+            # 사이클 탐색하여 현재 그룹의 상자 수 저장
+            cnt = bfs(i)
             # 탐색이 끝난 그룹의 전체 상자 수 저장
             boxes.append(cnt)
     
