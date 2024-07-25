@@ -1,7 +1,5 @@
 # 짝이 맞지 않은 형태로 작성되어 오류가 나는 것을 알게 되었습니다.
 # 소스 코드에 작성된 모든 괄호를 뽑아서 올바른 순서대로 배치된 괄호 문자열을 알려주는 프로그램
-from copy import deepcopy
-
 def is_empty(string):
     # 빈문자열이다.
     if not string:
