@@ -40,23 +40,24 @@ def is_correct(string):
 
 
 def solution(p):
-    while True:
-        # 1.입력이 빈 문자열인 경우 -> 빈 문자열 반환 
-        if is_empty(p):
-            return p
-        # 2.문자열 w를 두 "균형잡힌 괄호 문자열" u, v로 분리
-        # 단, u는 "균형잡힌 괄호 문자열"로 더 이상 분리할 수 없어야 함
-        u, v = separated_balance(p)
-        # 3.문자열 u가 "올바른 괄호 문자열" 이라면
-        if is_correct(u):
-            # 문자열 v에 대해 1단계부터 다시 수행
-            return u + solution(v)
-        # 문자열 u가 "올바른 괄호 문자열"이 아니라면
-        answer = "(" + solution(v) + ")"
-        
-        for s in u[1:len(u)-1]:
-            if s == "(":
-                answer += ")"
-            else:
-                answer += "("
-        return answer
+    # 1.입력이 빈 문자열인 경우 -> 빈 문자열 반환 
+    if is_empty(p):
+        return p
+    # 2.문자열 w를 두 "균형잡힌 괄호 문자열" u, v로 분리
+    # 단, u는 "균형잡힌 괄호 문자열"로 더 이상 분리할 수 없어야 함
+    u, v = separated_balance(p)
+    # 3.문자열 u가 "올바른 괄호 문자열" 이라면
+    if is_correct(u):
+        # 문자열 v에 대해 1단계부터 다시 수행
+        return u + solution(v)
+    # 문자열 u가 "올바른 괄호 문자열"이 아니라면
+    answer = "(" + solution(v) + ")"
+    # u의 첫 번째와 마지막 문자를 제거
+    # 나머지 문자열의 괄호 방향을 뒤집어서 뒤에 붙임
+    for s in u[1:-1]:
+        if s == "(":
+            answer += ")"
+        else:
+            answer += "("
+    # 생성된 문자열 반환
+    return answer
