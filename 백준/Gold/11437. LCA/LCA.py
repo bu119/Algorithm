@@ -1,6 +1,7 @@
 import sys
 # 런타임 오류를 피하기
 sys.setrecursionlimit(int(1e5))
+input = sys.stdin.readline
 
 # 루트 노드부터 시작하여 깊이(depth)를 구하는 함수
 def dfs(x, depth):
