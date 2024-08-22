@@ -3,7 +3,7 @@ input = sys.stdin.readline
 
 n, k = map(int,input().split())
 arr = list(map(int,input().split()))
-check = [0] * (max(arr) + 1)
+check = [0] * 100001
 ans = 0
 start, end = 0, 0
 
