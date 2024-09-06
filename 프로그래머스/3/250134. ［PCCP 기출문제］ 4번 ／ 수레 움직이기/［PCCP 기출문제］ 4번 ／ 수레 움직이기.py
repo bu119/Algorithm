@@ -15,7 +15,7 @@ def solution(maze):
         
         return possiblePosi
         
-    #  퍼즐을 푸는데 필요한 최소 턴 탐색
+    # 퍼즐을 푸는데 필요한 최소 턴 탐색
     def dfs(idx, currRed, currBlue, visitedRed, visitedBlue, isArrivedRed, isArrivedBlue):
         nonlocal minV
         # 이동한 공 방문 체크
@@ -94,12 +94,11 @@ def solution(maze):
     visitedRed = [[0]*m for _ in range(n)]
     visitedBlue = [[0]*m for _ in range(n)]
     
-    # 퍼즐을 푸는데 필요한 턴의 최솟값
+    # 퍼즐을 푸는데 필요한 최소 턴
     minV = 400
     # 퍼즐 시작
     dfs(0, rs, bs, visitedRed, visitedBlue, rs==ra, bs==ba)
-    # 퍼즐을 풀 수 없는 경우 
+    # 퍼즐을 풀 수 없는 경우
     if minV == 400:
-        return 0
-    # 즐을 푸는데 필요한 최소 턴
+        minV = 0
     return minV
