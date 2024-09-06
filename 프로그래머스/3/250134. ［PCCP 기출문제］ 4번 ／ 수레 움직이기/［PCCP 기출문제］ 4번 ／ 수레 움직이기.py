@@ -30,7 +30,10 @@ def solution(maze):
             if idx < minV:
                 minV = idx
             return
-
+        
+        redPosi = []
+        bluePosi = []
+        
         # 빨간공 도착 안했을 때 이동 가능한 위치
         if not isArrivedRed:
             redPosi = move(currRed, visitedRed)
@@ -59,17 +62,16 @@ def solution(maze):
                     continue
                 dfs(idx+1, nextRed, currBlue, deepcopy(visitedRed), visitedBlue, ra == nextRed, isArrivedBlue)
        # 빨간 공, 파란 공 모두 이동 
-        elif not isArrivedRed and not isArrivedBlue:
-            for nextRed in redPosi:
-                for nextBlue in bluePosi:
-                    # 동시에 같은 칸으로 이동 불가
-                    if nextRed == nextBlue:
-                        continue
-                    # 자리 바꾸기 불가
-                    if currRed == nextBlue and nextRed == currBlue:
-                        continue
-    
-                    dfs(idx+1, nextRed, nextBlue, deepcopy(visitedRed), deepcopy(visitedBlue), ra == nextRed, ba == nextBlue)
+        for nextRed in redPosi:
+            for nextBlue in bluePosi:
+                # 동시에 같은 칸으로 이동 불가
+                if nextRed == nextBlue:
+                    continue
+                # 자리 바꾸기 불가
+                if currRed == nextBlue and nextRed == currBlue:
+                    continue
+
+                dfs(idx+1, nextRed, nextBlue, deepcopy(visitedRed), deepcopy(visitedBlue), ra == nextRed, ba == nextBlue)
                     
                     
     n = len(maze)
