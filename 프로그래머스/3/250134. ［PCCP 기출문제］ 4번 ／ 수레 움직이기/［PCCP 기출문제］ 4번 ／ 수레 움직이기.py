@@ -1,6 +1,7 @@
 from copy import deepcopy
     
 def solution(maze):
+    
     # 공이 이동 가능한 위치 반환
     def move(curr, visited):
         nonlocal maze, n, m
@@ -90,13 +91,13 @@ def solution(maze):
 
     di = [-1, 1, 0, 0]
     dj = [0, 0, -1, 1]
-                
+              
     visitedRed = [[0]*m for _ in range(n)]
     visitedBlue = [[0]*m for _ in range(n)]
     
     # 퍼즐을 푸는데 필요한 최소 턴
     minV = 400
-    # 퍼즐 시작
+    # 퍼즐 탐색
     dfs(0, rs, bs, visitedRed, visitedBlue, rs==ra, bs==ba)
     # 퍼즐을 풀 수 없는 경우
     if minV == 400:
