@@ -15,7 +15,7 @@ def solution(maze):
         
         return possiblePosi
         
-    
+    #  퍼즐을 푸는데 필요한 최소 턴 탐색
     def dfs(idx, currRed, currBlue, visitedRed, visitedBlue, isArrivedRed, isArrivedBlue):
         nonlocal minV
         # 이동한 공 방문 체크
@@ -100,6 +100,6 @@ def solution(maze):
     dfs(0, rs, bs, visitedRed, visitedBlue, rs==ra, bs==ba)
     # 퍼즐을 풀 수 없는 경우 
     if minV == 400:
-        minV = 0
-        
+        return 0
+    # 즐을 푸는데 필요한 최소 턴
     return minV
