@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 # 모든 부분 격자를 시계 방향으로 90도 회전
 def rotate_90():
     newBoard = [[0]*m for _ in range(m)]
