@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 # 모든 부분 격자를 시계 방향으로 90도 회전
 def rotate_90():
     newBoard = [[0]*m for _ in range(m)]
@@ -32,11 +29,8 @@ def reduce_ice():
     for i in range(m):
         for j in range(m):
             newBoard[i][j] = board[i][j]
-            # 얼음이 있으면
-            if board[i][j] == 0:
-                continue
-            # 3개 또는 그 이상과 인접해있지 않은 칸은 얼음 1 감소
-            if not is_3_adj_ice(i, j):
+            # 얼음이 있고 3개 또는 그 이상과 인접해있지 않은 칸은 얼음 1 감소
+            if board[i][j] > 0 and not is_3_adj_ice(i, j):
                 newBoard[i][j] -= 1
 
     return newBoard
