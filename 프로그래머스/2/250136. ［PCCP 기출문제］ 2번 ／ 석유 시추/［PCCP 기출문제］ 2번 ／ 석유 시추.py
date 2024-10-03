@@ -2,9 +2,11 @@ def solution(land):
 
     def bfs(x, y):
         nonlocal totalOil, visited, n, m, di, dj
-        
+        # 현재 석유덩어리가 포함되어있는 열 저장
         col = {y}
+        # 석유량 저장
         oil = 1
+        
         stack = [(x, y)]
         visited[x][y] = 1
         
