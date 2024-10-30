@@ -29,46 +29,45 @@ def solution(points, routes):
     x = len(routes)
     m = len(routes[0])
     # 두 포인트 사이의 경로 저장
-    route = dict()
-    # 각 로봇이 총 방문 경로 저장
-    totalShortest = [[] for _ in range(x)]
-    # 로봇이 방문하는 경로 길이 저장
-    routeLenth = [0]*x
+    shortest = dict()
+    # 각 로봇의 이동위치, 시간 저장
+    move = dict()
     # 각 로봇의 총 방문 경로 찾기
     for i in range(x):
         # 시작 포인트
         p1 = routes[i][0] - 1
-        # 시작 위치 추가
-        totalShortest[i].append(tuple(points[p1]))
+        # 시작 위치
+        r, c = points[p1]
+        # 움직인 시간
+        time = 0
+        # 시작 포인트
+        if (r, c, time) not in move:
+            move[(r, c, time)] = 1
+        else:
+            move[(r, c, time)] += 1
+            
+        # 경로 탐색    
         for j in range(1, m):
             # 도착 포인트
             p2 = routes[i][j] - 1
             # 앞서 이동한 경로가 아니라면 경로 탐색 후 저장 
-            if (p1, p2) not in route:
-                route[(p1, p2)] = save_shortest(points[p1], points[p2])
-            # p1에서 p2 경로 저장
-            totalShortest[i] += route[(p1, p2)]
+            if (p1, p2) not in shortest:
+                shortest[(p1, p2)] = save_shortest(points[p1], points[p2])
+            # 이동 위치, 시간 저장
+            for r, c in shortest[(p1, p2)]:
+                # 몇 번째 이동인지 체크
+                time += 1
+                # 각 위치를 몇 번째로 지나는 지 추가
+                if (r, c, time) not in move:
+                    move[(r, c, time)] = 1
+                else:
+                    move[(r, c, time)] += 1
             p1 = p2
-        routeLenth[i] = len(totalShortest[i])
-        
-    # 충돌 횟수 저장    
+    # 충돌 횟수 저장        
     answer = 0
-    # 이동 경로 탐색
-    for i in range(sorted(routeLenth, reverse=True)[1]):
-        # 각 로봇의 이동 위치, 방문 횟수 저장
-        moved = dict()
-        for j in range(x):
-            # j번째 로봇의 경로가 마지막 지점에 도착했으면 통과
-            if routeLenth[j] <= i:
-                continue
-            # 이동 중이라면 이동 위치 방문 횟수 저장
-            if totalShortest[j][i] in moved:
-                moved[totalShortest[j][i]] += 1
-            else:
-                moved[totalShortest[j][i]] = 1
-        # 충돌 횟수 확인
-        for cnt in moved.values():
-            if cnt > 1:
-                answer += 1
-            
+    # 충돌 횟수 확인
+    for k in move.values():
+        # 위험 상황 발생
+        if k > 1:
+            answer += 1
     return answer
