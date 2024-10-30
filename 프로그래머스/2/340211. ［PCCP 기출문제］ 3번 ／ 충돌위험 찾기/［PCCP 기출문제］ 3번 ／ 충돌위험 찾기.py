@@ -1,6 +1,6 @@
 from collections import deque
 
-# 이동 위치 찾기
+# 이동 경로 찾기
 def save_shortest(start, end):
     sr, sc = start
     er, ec = end
