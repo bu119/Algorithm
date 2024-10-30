@@ -29,12 +29,6 @@ def solution(points, routes):
     n = len(points)
     x = len(routes)
     m = len(routes[0])
-    maxR, maxC = 0, 0
-    # 행렬 최대 길이 찾기
-    for i in range(n):
-        r, c = points[i]
-        maxR = max(maxR, r)
-        maxC = max(maxC, c)
         
     # 두 포인트 사이의 경로 저장
     route = dict()
