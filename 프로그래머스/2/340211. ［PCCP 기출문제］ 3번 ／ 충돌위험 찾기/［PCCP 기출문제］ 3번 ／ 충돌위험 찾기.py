@@ -26,17 +26,15 @@ def save_shortest(start, end):
 def solution(points, routes):    
     # points: 각 포인트의 위치
     # routes: 각 로봇이 지나야하는 경로의 순서 (경로: 1~n)    
-    n = len(points)
     x = len(routes)
     m = len(routes[0])
-        
     # 두 포인트 사이의 경로 저장
     route = dict()
-    # 각 로봇이 몇 번째 방문인지 저장
+    # 각 로봇이 총 방문 경로 저장
     totalShortest = [[] for _ in range(x)]
-    # 각 routes의 전체 경로 길이 저장
+    # 로봇이 방문하는 경로 길이 저장
     routeLenth = [0]*x
-    # 각 routes의 전체 경로 찾기
+    # 각 로봇의 총 방문 경로 찾기
     for i in range(x):
         # 시작 포인트
         p1 = routes[i][0] - 1
@@ -69,8 +67,8 @@ def solution(points, routes):
             else:
                 moved[totalShortest[j][i]] = 1
         # 충돌 횟수 확인
-        for posi in moved:
-            if moved[posi] > 1:
+        for cnt in moved.values():
+            if cnt > 1:
                 answer += 1
             
     return answer
