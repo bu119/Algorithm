@@ -10,4 +10,4 @@ for i in range(h):
             arrA[i][j] = arrB[i][j]
 
 for arr in arrA:
-    print(*arr)
+    print(" ".join(map(str, arr)))
