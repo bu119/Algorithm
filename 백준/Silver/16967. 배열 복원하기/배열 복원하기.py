@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 h, w, x, y = map(int, input().split())
 arrA = [[0]*w for _ in range(h)]
 arrB = [list(map(int, input().split())) for _ in range(h+x)]
