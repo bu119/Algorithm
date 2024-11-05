@@ -1,25 +1,26 @@
-n, w, l = map(int,input().split())
-truck = list(map(int,input().split()))
-# 다리 칸
-bridge = [0]*w
-bridgeW = 0
+n, w, l = map(int, input().split())
+trucks = list(map(int, input().split()))
+# 시간 저장
 time = 0
-while truck or bridge:
-    # 시간 추가
-    time += 1
-    # 시간이 지나면 다리 맨 앞칸 무게 제거
-    bridgeW -= bridge.pop(0)
+# 다리 각 부분에 해당하는 무게 저장
+bridge = [0]*w
+# 다리의 트럭 무게
+bridgeW = 0
 
-    # 건너야 하는 트럭이 남아 있으면
-    if truck:
-        # 남은 트럭이 더해져 다리 하중보다 무게가 커지면 트럭 추가 안함
-        if bridgeW + truck[0] > l:
-            # 남은 트럭이 존재하면 0을 추가하여 다리위에 있는 트럭 보내기
-            bridge.append(0)
-        else:
-            # 하증을 견딜수있으면
-            bridge.append(truck[0])
-            # 다리위 트럭 추가
-            bridgeW += truck[0]
-            truck.pop(0)
+while trucks or bridgeW:
+    # 맨 앞 트럭 보냄
+    bridgeW -= bridge.pop(0)
+    # 새로운 트럭이 있고 진입 했을 때 최대 하중 이하면
+    if trucks and bridgeW <= l - trucks[0]:
+        truck = trucks.pop(0)
+        # 다리에 진입
+        bridge.append(truck)
+        # 무게 추가
+        bridgeW += truck
+    else:
+        # 최대 하중을 초과하면 다리에 진입 못함
+        bridge.append(0)
+    # 시간 증가
+    time += 1
+
 print(time)
