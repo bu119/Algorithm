@@ -30,10 +30,10 @@ def solution(numbers):
     
     # 타이핑 최소 시간 찾기 
     def find_min_cost_dijkstra():
-
         heap = []
         # 비용, 왼손 번호, 오른손 번호, 다음 숫자 인덱스 
         heap.append((0, "4", "6", 0))
+        # 각 경우에서 비용 저장
         visited = dict()
         # (왼손 번호, 오른손 번호, 다음 인덱스): 비용
         visited[("4", "6", 0)] = 0
@@ -46,7 +46,6 @@ def solution(numbers):
             # 현재 비용이 저장된 비용보다 크면 탐색 안함
             if visited[(leftHand, rightHand, numIdx)] < cost:
                 continue
-            
             # 마지막 숫자 타이핑이 끝나면 최소 시간 반환
             if numIdx == n:
                 return cost
@@ -55,19 +54,24 @@ def solution(numbers):
             number = numbers[numIdx]
             # 티이핑할 숫자 위치
             ex, ey = board[number]
+            
             # 왼손 위치 인덱스
-            leftIdx = convertToIdx[leftHand]
-                
+            leftIdx = convertToIdx[leftHand]  
             # 왼손 이동
-            if (number, rightHand, numIdx + 1) not in visited or visited[(number, rightHand, numIdx + 1)] > cost + dist[leftIdx][ex][ey]:
-                visited[(number, rightHand, numIdx + 1)] = cost + dist[leftIdx][ex][ey]
-                heapq.heappush(heap, (cost + dist[leftIdx][ex][ey], number, rightHand, numIdx + 1))
+            moveLeft = (number, rightHand, numIdx + 1)
+            moveLeftCost = cost + dist[leftIdx][ex][ey]
+            if moveLeft not in visited or visited[moveLeft] > moveLeftCost:
+                visited[moveLeft] = moveLeftCost
+                heapq.heappush(heap, (moveLeftCost, number, rightHand, numIdx + 1))
+                
             # 오른손 위치 인덱스
             rightIdx = convertToIdx[rightHand]
             # 오른손 이동
-            if (leftHand, number, numIdx + 1) not in visited or visited[(leftHand, number, numIdx + 1)] > cost + dist[rightIdx][ex][ey]:
-                visited[(leftHand, number, numIdx + 1)] = cost + dist[rightIdx][ex][ey]
-                heapq.heappush(heap, (cost + dist[rightIdx][ex][ey], leftHand, number, numIdx + 1))
+            moveRight = (leftHand, number, numIdx + 1)
+            moveRightCost = cost + dist[rightIdx][ex][ey]
+            if moveRight not in visited or visited[moveRight] > moveRightCost:
+                visited[moveRight] = moveRightCost
+                heapq.heappush(heap, (moveRightCost, leftHand, number, numIdx + 1))
 
     
     # 자판의 위치 저장
