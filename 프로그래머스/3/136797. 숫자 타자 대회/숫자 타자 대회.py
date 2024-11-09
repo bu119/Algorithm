@@ -2,12 +2,15 @@ import heapq
 
 def solution(numbers):
         
-    # 각 번호로 부터 최소 시간 저장 (인덱스, 위치)
+    # 각 번호로 부터 최소 시간 저장
     def find_weights_dijkstra(idx):
+        # 시작 위치
         x, y = board[idx]
+        
         heap = []
-        # 왼손 위치, 현재 가중치
+        # 가중치, 현재 위치
         heapq.heappush(heap, (0, x, y))
+        # 자기자신 누르면 가중치 1
         dist[idx][x][y] = 1
 
         while heap:
