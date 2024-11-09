@@ -52,7 +52,7 @@ def solution(numbers):
                 return cost
         
             # 타이핑할 숫자
-            number = numbers[numIdx]
+            number = int(numbers[numIdx])
             # 티이핑할 숫자 위치
             ex, ey = board[number]
             
@@ -77,8 +77,6 @@ def solution(numbers):
     
     # 문자열 길이
     n = len(numbers)
-    # 숫자로 변환
-    numbers = list(map(int, numbers))
     # 자판의 위치 저장
     board = {
         1: (0, 0), 2: (0, 1), 3: (0, 2),
