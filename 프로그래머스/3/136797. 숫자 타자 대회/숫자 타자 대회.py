@@ -58,21 +58,17 @@ def solution(numbers):
             number = int(numbers[numIdx])
             # 티이핑할 숫자 위치
             ex, ey = board[number]
-            
-            # 왼손 위치 인덱스
-            leftIdx = int(leftHand)  
+
             # 왼손 이동
             moveLeft = (number, rightHand, numIdx + 1)
-            moveLeftCost = cost + dist[leftIdx][ex][ey]
+            moveLeftCost = cost + dist[leftHand][ex][ey]
             if moveLeft not in visited or visited[moveLeft] > moveLeftCost:
                 visited[moveLeft] = moveLeftCost
                 heapq.heappush(heap, (moveLeftCost, number, rightHand, numIdx + 1))
                 
-            # 오른손 위치 인덱스
-            rightIdx = int(rightHand)
             # 오른손 이동
             moveRight = (leftHand, number, numIdx + 1)
-            moveRightCost = cost + dist[rightIdx][ex][ey]
+            moveRightCost = cost + dist[rightHand][ex][ey]
             if moveRight not in visited or visited[moveRight] > moveRightCost:
                 visited[moveRight] = moveRightCost
                 heapq.heappush(heap, (moveRightCost, leftHand, number, numIdx + 1))
