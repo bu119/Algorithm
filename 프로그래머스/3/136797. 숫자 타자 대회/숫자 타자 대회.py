@@ -56,7 +56,7 @@ def solution(numbers):
             ex, ey = board[number]
             
             # 왼손 위치 인덱스
-            leftIdx = convertToIdx[leftHand]  
+            leftIdx = int(leftHand)  
             # 왼손 이동
             moveLeft = (number, rightHand, numIdx + 1)
             moveLeftCost = cost + dist[leftIdx][ex][ey]
@@ -65,7 +65,7 @@ def solution(numbers):
                 heapq.heappush(heap, (moveLeftCost, number, rightHand, numIdx + 1))
                 
             # 오른손 위치 인덱스
-            rightIdx = convertToIdx[rightHand]
+            rightIdx = int(rightHand)
             # 오른손 이동
             moveRight = (leftHand, number, numIdx + 1)
             moveRightCost = cost + dist[rightIdx][ex][ey]
@@ -81,11 +81,6 @@ def solution(numbers):
         "7": (2, 0), "8": (2, 1), "9": (2, 2),
         "0": (3, 1)
     }
-    # 자판을 인덱스로 변환
-    convertToIdx = {
-        "1": 0, "2": 1, "3": 2, "4": 3, "5": 4,
-        "6": 5, "7": 6, "8": 7, "9": 8, "0": 9
-    }
     
     # 가능한 최대 비용
     maxV = 300001
@@ -96,8 +91,8 @@ def solution(numbers):
     dj = [0, 0, -1, 1, 1, 1, -1, -1]
     
     # 각 위치에서 최소 시간 저장
-    for i in board:
-        find_weights_dijkstra(convertToIdx[i], board[i][0], board[i][1])
+    for num in board:
+        find_weights_dijkstra(int(num), board[num][0], board[num][1])
 
     # 문자열 길이
     n = len(numbers)
