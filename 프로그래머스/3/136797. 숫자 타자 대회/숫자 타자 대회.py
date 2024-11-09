@@ -3,7 +3,8 @@ import heapq
 def solution(numbers):
         
     # 각 번호로 부터 최소 시간 저장 (인덱스, 위치)
-    def find_weights_dijkstra(idx, x, y):
+    def find_weights_dijkstra(idx):
+        x, y = board[idx]
         heap = []
         # 왼손 위치, 현재 가중치
         heapq.heappush(heap, (0, x, y))
@@ -32,11 +33,11 @@ def solution(numbers):
     def find_min_cost_dijkstra():
         heap = []
         # 비용, 왼손 번호, 오른손 번호, 다음 숫자 인덱스 
-        heap.append((0, "4", "6", 0))
+        heap.append((0, 4, 6, 0))
         # 각 경우에서 비용 저장
         visited = dict()
         # (왼손 번호, 오른손 번호, 다음 인덱스): 비용
-        visited[("4", "6", 0)] = 0
+        visited[(4, 6, 0)] = 0
         while heap:
             # 현재 비용, 왼손 위치, 오른손 위치, 다음에 누를 숫자 인덱스
             cost, leftHand, rightHand, numIdx = heapq.heappop(heap)
@@ -74,14 +75,17 @@ def solution(numbers):
                 heapq.heappush(heap, (moveRightCost, leftHand, number, numIdx + 1))
 
     
+    # 문자열 길이
+    n = len(numbers)
+    # 숫자로 변환
+    numbers = list(map(int, numbers))
     # 자판의 위치 저장
     board = {
-        "1": (0, 0), "2": (0, 1), "3": (0, 2),
-        "4": (1, 0), "5": (1, 1), "6": (1, 2),
-        "7": (2, 0), "8": (2, 1), "9": (2, 2),
-        "0": (3, 1)
+        1: (0, 0), 2: (0, 1), 3: (0, 2),
+        4: (1, 0), 5: (1, 1), 6: (1, 2),
+        7: (2, 0), 8: (2, 1), 9: (2, 2),
+        0: (3, 1)
     }
-    
     # 가능한 최대 비용
     maxV = 300001
     # 각 위치에서 최소 시간 저장
@@ -91,11 +95,9 @@ def solution(numbers):
     dj = [0, 0, -1, 1, 1, 1, -1, -1]
     
     # 각 위치에서 최소 시간 저장
-    for num in board:
-        find_weights_dijkstra(int(num), board[num][0], board[num][1])
+    for i in range(10):
+        find_weights_dijkstra(i)
 
-    # 문자열 길이
-    n = len(numbers)
     # 최소 가중치 저장
     answer = find_min_cost_dijkstra()
 
