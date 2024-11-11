@@ -22,7 +22,6 @@ def solution(diffs, times, limit):
             mid = (start + end) // 2
             # 게임 시간 계산
             game_time = puzzle_game(mid) 
-            # 제한 시간과 게임 시간 비교
             if game_time <= target:
                 end = mid - 1
             else:
@@ -35,7 +34,6 @@ def solution(diffs, times, limit):
     # 숙련도 시작값
     start_level = 1
     # 숙련도 최댓값
-    end_level = max(diffs)
+    end_level = 100000
     # 숙련도 최솟값 구하기
     return binary_search(start_level, end_level, limit)
-   
