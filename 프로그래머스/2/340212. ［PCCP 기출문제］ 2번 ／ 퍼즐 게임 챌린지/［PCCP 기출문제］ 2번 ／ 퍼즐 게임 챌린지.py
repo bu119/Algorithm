@@ -3,23 +3,15 @@ def solution(diffs, times, limit):
     def puzzle_game(level):
         # 현재 숙련도에서 소요 시간
         total_time = 0
-        # 이전 퍼즐의 소요 시간
-        time_prev = 0
         # 퍼즐 게임 시작
         for i in range(n):
-            # 현재 퍼즐의 난이도
-            diff = diffs[i]
-            # 현재 퍼즐의 소요 시간
-            time_cur = times[i]
             # 시간 계산
-            if diff <= level:
-                total_time += time_cur
+            if diffs[i] <= level:
+                total_time += times[i]
             else:
                 # 틀린 횟수
-                cnt = diff - level
-                total_time += (time_cur + time_prev) * cnt + time_cur
-            # 이전 퍼즐의 소요 시간 변경
-            time_prev = time_cur
+                cnt = diffs[i] - level
+                total_time += (times[i] + times[i-1]) * cnt + times[i]
 
         return total_time
 
