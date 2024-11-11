@@ -15,20 +15,26 @@ def solution(diffs, times, limit):
 
         return total_time
 
+    # 숙련도 이분 탐색
+    def binary_search(start, end, target):
+        while start <= end:
+            mid = (start + end) // 2
+            # 게임 시간 계산
+            game_time = puzzle_game(mid) 
+            
+            if game_time <= target:
+                end = mid - 1
+            else:
+                start = mid + 1
+        # 숙련도 최솟값
+        return start
     
+    # 퍼즐 개수
     n = len(diffs)
+    # 숙련도 시작값
+    start_level = 1
     # 숙련도 최댓값
     end_level = max(diffs)
-    # 숙련도 최솟값
-    start_level = 1
-    # 숙련도 이분 탐색
-    while start_level <= end_level:
-        mid_level = (start_level + end_level) // 2
-        game_time = puzzle_game(mid_level) 
-        if game_time <= limit:
-            end_level = mid_level - 1
-        else:
-            start_level = mid_level + 1
-            
-    # 숙련도의 최솟값
-    return start_level
+    # 숙련도 최솟값 구하기
+    return binary_search(start_level, end_level, limit)
+   
