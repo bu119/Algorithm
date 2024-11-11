@@ -17,16 +17,17 @@ def solution(diffs, times, limit):
 
     # 숙련도 이분 탐색
     def binary_search(start, end, target):
+        
         while start <= end:
             mid = (start + end) // 2
             # 게임 시간 계산
             game_time = puzzle_game(mid) 
-            
+            # 제한 시간과 게임 시간 비교
             if game_time <= target:
                 end = mid - 1
             else:
                 start = mid + 1
-        # 숙련도 최솟값
+        # 숙련도 최솟값 반환
         return start
     
     # 퍼즐 개수
