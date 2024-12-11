@@ -1,29 +1,36 @@
 def solution(a, b, g, s, w, t):
     
     def transport_mineral(time):
-        max_gold = 0
-        max_silver = 0
-        max_total = 0
-        # 해당 시간 안에 이동가능한 각 도시의 광물 합 
+        # 모든 도시에서 새 도시로 운반 가능한
+        # 금의 총합
+        total_gold = 0
+        # 은의 총합
+        total_silver = 0
+        # 총 광물의 합
+        total_mineral = 0
+        # 해당 시간 안에 각 도시에서 운반 가능한 광물의 합 
         for i in range(n):
-            # 해당 도시 트럭이 시간 안에 몇번 이동 가능한 지
+            # 해당 시간 안에 i번 도시의 트럭이 이동 가능한 횟수
             move_cnt = time // (t[i] * 2)
-            # 편도로 한번 더 이동 가능
+            # 편도로 한 번 더 이동 가능
             if time % (t[i] * 2) >= t[i]:
                 move_cnt += 1
-            # 이동 가능한 광물의 전체 무게
+            # 이동 가능한 광물의 총 무게
             move_weight = move_cnt * w[i]
-            # 최대로 담을 수 있는 전체 무게
-            max_total += min(g[i]+s[i], move_weight)
-            # 최대로 담을 수 있는 금 무게
-            max_gold += min(g[i], move_weight)
-            # 최대로 담을 수 있는 은 무게
-            max_silver += min(s[i], move_weight)
-        # 해당 시간에서 광물이 a, b 만큼 새 도시로 이동가능 한 지 체크
-        if a <= max_gold and b <= max_silver and a+b <= max_total:
-            # 이동 가능
+            
+            # 운반 가능한 최대 무게 누적
+            # 금만 운반
+            total_gold += min(g[i], move_weight)
+            # 은만 운반
+            total_silver += min(s[i], move_weight)
+            # 금과 은 같이 운반
+            total_mineral += min(g[i]+s[i], move_weight)
+        
+        # 해당 시간 안에 광물이 a, b 만큼 새 도시로 운반가능 한 지 체크
+        if a <= total_gold and b <= total_silver and a+b <= total_mineral:
+            # 운반 가능
             return True
-        # 이동 불가능
+        # 운반 불가능
         return False
         
     
@@ -37,12 +44,12 @@ def solution(a, b, g, s, w, t):
     while start < end:
         # 중간 시간
         mid = (start + end) // 2
-        # 현재 시간에 이동 가능한 광물 계산해서 이동 가능한지 체크
-        # 광물 이동 가능하면 최대 범위 줄이기
+        # 현재 시간에 이동 가능한 광물 계산해서 운반 가능한지 체크
+        # 광물 운반 가능하면 최대 범위 줄이기
         if transport_mineral(mid):
             end = mid
         else:
-            # 이동 불가능 하면 최소 범위 올리기
+            # 운반 불가능 하면 최소 범위 올리기
             start = mid + 1
             
     return end
