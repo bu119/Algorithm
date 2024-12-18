@@ -1,34 +1,36 @@
-# 접미사와 접두사를 하나씩 늘려가면서 비교 후 
-# 일치하지 않으면, 일치했던 부분으로 돌아가서 재 검사하는 함수
+import sys
+input = sys.stdin.readline
+
+# 탐색 문자열(pattern)의 각 위치에서 가장 긴 접두사 = 접미사의 길이를 저장
 def kmp_table(pattern):
     m = len(pattern)
-    # 패턴 길이 저장
+    # 문자열(pattern)에서 가장 긴 반복 문자열의 길이 저장
     table = [0 for _ in range(m)]
-    # 접두사 포인터 -> 일치 패턴 길이
+    # 접두사 포인터 (접두사의 끝 위치를 가리킴, 현재까지 일치한 길이)
     pi = 0
     # 접미사와 접두사를 하나씩 늘려가면서 비교
-    # 접미사 포인터
+    # si는 접미사를 가리키는 포인터 (두 번째 문자부터 비교 시작)
     for si in range(1, m):
-        # pi와 si가 가리키는 문자가 다르면 -> 접두사 = 접미사 존재 x
-        # 접두사 포인터 pi는 (접두사 = 접미사) 였던 이전 위치로 돌아감
+        # 접두사와 접미사가 일치하지 않는 경우
         while pi > 0 and pattern[si] != pattern[pi]:
+            # 이전 일치 상태로 돌아감 (이전 접두사의 끝 위치로 이동)
             pi = table[pi - 1]
+            # 현재까지의 접두사=접미사 정보를 활용해 다음 비교 위치를 조정
 
-        # pi와 si가 가리키는 문자가 일치하면 -> 접두사 = 접미사 존재 o
-        # pi는 0부터 가장 길게 매칭된 패턴의 길이
+        # 접두사와 접미사가 일치하는 경우
         if pattern[si] == pattern[pi]:
-            # 패턴 일치 길이 1 증가
+            # 접두사 길이 증가 (pi는 가장 긴 접두사=접미사의 길이를 나타냄)
             pi += 1
-            # si 위치에 최장 일치 길이 저장
+            # 현재 위치(si)에 일치 길이 저장
             table[si] = pi
-
+    # 최장 접두사 = 접미사의 길이 반환
     return max(table)
 
 
 string = input()
 n = len(string)
 ans = 0
-# 패턴이 될 수 있는 모든 문자열에 대해 최대값 갱신
+# 문자열의 모든 접미사에 최대 테이블 생성 및 최대 길이 갱신
 for i in range(n):
     ans = max(ans, kmp_table(string[i:]))
 print(ans)
