@@ -1,11 +1,11 @@
 s = input()
 n = len(s)
-string = set()
+ans = 0
 
-for i in range(n):
-    for j in range(1, n+1):
-        if i+j > n:
-            break
-        string.add(s[i:i+j])
+for k in range(1, n+1):
+    substring = set()
+    for i in range(n-k+1):
+        substring.add(s[i:i+k])
+    ans += len(substring)
 
-print(len(string))
+print(ans)
