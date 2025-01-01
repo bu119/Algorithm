@@ -18,8 +18,6 @@ cnt = [0]*4
 # 초기 개수 저장
 for i in range(p):
     cnt[dna[string[i]]] += 1
-# 초기 부분 문자열
-sub_string = string[:p]
 # 비밀번호 가능하면 저장
 if use_password():
     ans += 1
