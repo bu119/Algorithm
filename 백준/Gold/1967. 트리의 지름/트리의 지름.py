@@ -1,5 +1,6 @@
 import sys
 sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
 
 # 특정 노드에서 각 노드로 길이 찾는 함수
 def dfs(node, ssum):
@@ -16,8 +17,8 @@ leaf_node = set(range(1, n+1))
 for _ in range(n-1):
     p, c, w = map(int, input().split())
     # 양방향 이동
-    tree[p].append([c, w])
-    tree[c].append([p, w])
+    tree[p].append((c, w))
+    tree[c].append((p, w))
     # 자식있는 노드 삭제
     leaf_node.discard(p)
     
