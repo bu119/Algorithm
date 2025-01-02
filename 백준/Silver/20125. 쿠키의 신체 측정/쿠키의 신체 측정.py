@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 # 심장 찾기
 def find_heart():
     # 맨 윗 줄 부터 처음 등장하는 부분이 머리
