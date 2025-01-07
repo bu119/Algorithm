@@ -6,7 +6,7 @@ meat = dict()
 # 전체 무게 저장
 total_weight = 0
 for _ in range(n):
-    # 각 고기 덩어리의 무게와 가격
+    # 각 고기 무게, 가격
     w, p = map(int, input().split())
     # 가격 기준으로 저장
     if p in meat:
@@ -28,7 +28,7 @@ if total_weight >= m:
         # 같은 가격 개수 저장
         cnt = 0
         for weight in meat[price]:
-            # 개수 추가
+            # 개수 증가
             cnt += 1
             # 무게 추가
             sum_weight += weight
@@ -36,7 +36,7 @@ if total_weight >= m:
             if sum_weight >= m:
                 # 같은 가격 두개 합한 것보다 그 다음 가격이 작을 수 있음
                 ans = min(ans, price * cnt)
-                # 같은 가격은 더 탐색할 필요 x -> 현재 비용이 최소
+                # 같은 가격은 더 탐색할 필요없음 -> 현재 비용이 최소
                 break
         # 한 개 가격이면 더 이상 비교할 필요 없음
         if cnt == 1 and ans != max_val:
