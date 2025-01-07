@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
 meat = [list(map(int, input().split())) for _ in range(n)]
 # 가격 기준 오름차순 정렬 -> 싼 고기들은 얼마든지 덤으로 획득 가능
