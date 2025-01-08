@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n, m = map(int, input().split())
 idx = {"A": 0, "C": 1, "G": 2, "T": 3}
 dna = {0: "A", 1: "C", 2: "G", 3: "T"}
