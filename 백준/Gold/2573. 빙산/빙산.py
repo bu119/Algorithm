@@ -1,62 +1,85 @@
-import sys
-input = sys.stdin.readline
+# 4방향 탐색으로 빙산 녹이기
+def melt_iceberg():
+    global ocean, icebergs
+    # 빙산의 변경 정보 저장
+    iceberg_info = []
 
-# 빙산 덩어리 개수 구하기
-def bfs(x,y):
-    ice = []
-    stack = [(x,y)]
-    visited[x][y] = 1
+    for x, y in icebergs:
+        # 동서남북으로 붙어있는 0개수 저장
+        water = 0
+        # 4방향 탐색
+        for k in range(4):
+            nx = x + dx[k]
+            ny = y + dy[k]
+            if 0 <= nx < n and 0 <= ny < m and ocean[nx][ny] == 0:
+                water += 1
+        # 녹는 빙산 정보 저장
+        if water > 0:
+            iceberg_info.append((x, y, water))
+    # 0개수 만큼 녹이기
+    for x, y, w in iceberg_info:
+        if ocean[x][y] > w:
+            ocean[x][y] -= w
+            continue
+        # 높이는 0보다 더 줄지 않음
+        ocean[x][y] = 0
+        # 빙산 다 녹음
+        icebergs.discard((x, y))
+
+
+# 연결된 빙산 개수 찾기
+def count_iceberg_bfs(x, y):
+    global visited
+
+    stack = [(x, y)]
+    visited.add((x, y))
 
     while stack:
         x, y = stack.pop()
-
-        for z in range(4):
-            nx = x + di[z]
-            ny = y + dj[z]
-            if 0 <= nx < n and 0 <= ny < m and visited[nx][ny] == 0:
-                if sea[nx][ny] > 0:
-                    visited[nx][ny] = 1
-                    stack.append((nx,ny))
-                # 빙산 녹이기
-                elif sea[x][y]:
-                    sea[x][y] -= 1
-        # 존재하는 빙산 인덱스
-        if sea[x][y] > 0:
-            ice.append((x,y))
-    return ice
+        # 4방향 탐색
+        for k in range(4):
+            nx = x + dx[k]
+            ny = y + dy[k]
+            if 0 <= nx < n and 0 <= ny < m and ocean[nx][ny] and (nx, ny) not in visited:
+                visited.add((nx, ny))
+                stack.append((nx, ny))
 
 
 n, m = map(int, input().split())
-sea = [list(map(int, input().split())) for _ in range(n)]
-
-di = [0,1,0,-1]
-dj = [1,0,-1,0]
-ans = 0
-iceberg = 0
-flag = 1
-
-visited = [[0] * m for _ in range(n)]
-
+icebergs = set()
+max_height = 0
+ocean = []
 for i in range(n):
+    row = list(map(int, input().split()))
     for j in range(m):
-        if sea[i][j] and visited[i][j] == 0:
-            iceberg += 1
-            ice = bfs(i, j)
+        if row[j] != 0:
+            icebergs.add((i, j))
+            max_height = max(max_height, row[j])
+    ocean.append(row)
 
-while iceberg < 2 and flag:
-    visited = [[0] * m for _ in range(n)]
-    # 빙산 개수 리셋
-    iceberg = 0
-    flag = 0
-    for r, c in ice:
-        if sea[r][c] and visited[r][c] == 0:
-            iceberg += 1
-            ice = bfs(r, c)
-            flag = 1
-    # 1년 지남
-    ans += 1
-
-if iceberg < 2:
-    ans = 0
-
+ans = 0
+year = 0
+# 동서남북
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+while icebergs:
+    year += 1
+    # 빙산 녹이기
+    melt_iceberg()
+    # 빙산 덩어리 개수 세기
+    iceberg_cnt = 0
+    # 방문 체크
+    visited = set()
+    for i, j in icebergs:
+        if (i, j) not in visited:
+            # 빙산 개수 증가
+            iceberg_cnt += 1
+            # 이미 빙산이 있으면 2개 이상 확정
+            if iceberg_cnt > 1:
+                break
+            count_iceberg_bfs(i, j)
+    #  두 덩어리 이상으로 분리
+    if iceberg_cnt >= 2:
+        ans = year
+        break
 print(ans)
