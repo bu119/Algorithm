@@ -47,14 +47,12 @@ def count_iceberg_bfs(x, y):
 
 n, m = map(int, input().split())
 icebergs = set()
-max_height = 0
 ocean = []
 for i in range(n):
     row = list(map(int, input().split()))
     for j in range(m):
         if row[j] != 0:
             icebergs.add((i, j))
-            max_height = max(max_height, row[j])
     ocean.append(row)
 
 ans = 0
