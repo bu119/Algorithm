@@ -27,8 +27,8 @@ def solution(n, paths, gates, summits):
                     min_intensity[1] = visited[now]
                     min_intensity[0] = now
                 # 가장 낮은 등산코스를 선택
-                elif visited[now] == min_intensity[1]:
-                    min_intensity[0] = min(now, min_intensity[0])
+                elif visited[now] == min_intensity[1] and now < min_intensity[0]:
+                    min_intensity[0] = now
                 continue
 
             for next_time, next in graph[now]:
