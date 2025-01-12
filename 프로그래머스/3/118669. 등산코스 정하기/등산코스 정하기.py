@@ -2,7 +2,10 @@ import heapq
 
 def solution(n, paths, gates, summits):
     
-    def dijkstra():       
+    def dijkstra():
+        # 최소 intensity 저장
+        min_intensity = [n+1, 10000001]
+        
         visited = [10000001]*(n+1)
         heap = []
         # 각 출발점에서 산봉우리 가는 길 탐색
@@ -12,8 +15,17 @@ def solution(n, paths, gates, summits):
         
         while heap:
             curr_time, now = heapq.heappop(heap)
-            # 저장된 시간이 더 작거나 산봉우리를 만나면 탐색 안함
-            if visited[now] < curr_time or now in set_summits:
+            # 저장된 시간이 더 작거나  탐색 안함
+            if visited[now] < curr_time:
+                continue
+            # 산봉우리를 만나면 intensity 갱신
+            if now in set_summits:
+                # 최소 intensity 찾기
+                if visited[now] < min_intensity[1]:
+                    min_intensity = [now, visited[now]]
+                # 가장 낮은 등산코스를 선택
+                elif visited[now] == min_intensity[1] and now < min_intensity[0]:
+                    min_intensity[0] = now
                 continue
 
             for next_time, next in graph[now]:
@@ -25,13 +37,6 @@ def solution(n, paths, gates, summits):
                 if max_time < visited[next]:
                     visited[next] = max_time
                     heapq.heappush(heap, (max_time, next))
-                    
-        # 최소 intensity 찾기
-        min_intensity = [0, 10000001]
-        for summit in sorted(summits):
-            if visited[summit] < min_intensity[1]:
-                min_intensity[1] = visited[summit]
-                min_intensity[0] = summit
         
         return min_intensity
 
