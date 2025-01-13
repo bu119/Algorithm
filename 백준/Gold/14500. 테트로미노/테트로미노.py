@@ -1,9 +1,13 @@
+import sys
+input = sys.stdin.readline
+
 # 테트로미노는 회전이나 대칭을 시켜도 된다 -> 4개의 정사각형을 4방향 탐색으로 4번 움직인 모양
 def dfs(idx, x, y, ssum):
     global ans
 
     if idx == 4:
-        ans = max(ans, ssum)
+        if ans < ssum:
+            ans = ssum
         return
 
     for k in range(4):
