@@ -18,7 +18,7 @@ def dfs(i, j, ssum, idx):
             dfs(ni, nj, ssum + arr[ni][nj], idx + 1)
             visited[ni][nj] = 0
 
-            # ㅜ 모양
+            # ㅜ 모양, 깊이 2에서 한번 더 탐색
             if idx == 2:
                 visited[ni][nj] = 1
                 dfs(i, j, ssum + arr[ni][nj], idx + 1)
