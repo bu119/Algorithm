@@ -10,9 +10,11 @@ ans = abs(100-n)
 if n != 100:
     for channel in range(1000001):
         str_channel = str(channel)
-        buttons = set(list(str_channel))
-        if not (broken_button & buttons):
-            cnt = len(str_channel) + abs(n-channel)
-            if cnt < ans:
-                ans = cnt
+        is_possible = True
+        for button in str_channel:
+            if button in broken_button:
+                is_possible = False
+                break
+        if is_possible:
+            ans = min(ans, len(str_channel) + abs(n-channel))
 print(ans)
