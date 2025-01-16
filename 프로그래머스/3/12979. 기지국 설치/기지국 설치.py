@@ -11,6 +11,8 @@ def solution(n, stations, w):
     answer = 0
     # 기지국 증설 가능한 공간 시작 위치
     start = 1
+    end = n
+    # 이미 존재하는 기지국과 비교하여 공간 찾기
     for station in stations:
         # 해당 기지국의 전파 전달 가능 위치 
         left = station - w
@@ -21,7 +23,7 @@ def solution(n, stations, w):
         # 시작 위치 갱신
         start = station + w + 1
     # 마지막 기지국 뒷 공간이 남아있으면
-    if start < n + 1:
-        answer += get_station_cnt(n + 1, start)
+    if start < end + 1:
+        answer += get_station_cnt(end + 1, start)
         
     return answer
