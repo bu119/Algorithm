@@ -11,9 +11,10 @@ def solution(board):
         # 비용, 방향, 행 열 위치
         # 동쪽, 남쪽 방향 두개 저장, 출발점 (0,0)
         heap = [(0, 0, 0, 0), (0, 1, 0, 0)]
-        # 출발점 방문 체크
-        for i in range(4):
-            visited[i][0][0] = 0
+        # 동쪽 방문체크
+        visited[0][0][0] = 0
+        # 남쪽 방문체크
+        visited[1][0][0] = 0
             
         while heap:
             # 현재 비용, 방향, 행 열 위치
@@ -21,7 +22,7 @@ def solution(board):
 
             if visited[k][x][y] < cost:
                 continue
-            
+            # 4방향 탐색
             for nk in range(4):
                 nx = x + dx[nk]
                 ny = y + dy[nk]
@@ -34,9 +35,9 @@ def solution(board):
                     # 코너면 코너 1개 + 직선도로 1개: 600원(500원 + 100원)
                     if k != nk:
                         new_road_cost += 500
-                    # 도로를 추가한 설계 비용
+                    # 새로운 설계 비용
                     next_cost = cost + new_road_cost
-                    # 새로 설계한 도로가 기존에 저장된 비용보다 적으면 비용 갱신
+                    # 최소 비용 갱신
                     if next_cost < visited[nk][nx][ny]:
                         visited[nk][nx][ny] = next_cost
                         heapq.heappush(heap, (next_cost, nk, nx, ny))
