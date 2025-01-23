@@ -1,27 +1,26 @@
-import heapq
+from collections import deque
 
-# 최소 비용 다익스트라 알고리즘
+
 def solution(board):
     
-    def dijkstra():
+    def bfs(direction):
         # 최대 비용
         max_cost = 25*25*500
-        # 3차원 배열: 방향에 따른 최소비용 저장
-        visited = [[[max_cost] * n for _ in range(n)] for _ in range(4)]
+        # 최소비용 저장
+        visited = [[max_cost] * n for _ in range(n)]
+        queue = deque()
         # 비용, 방향, 행 열 위치
-        # 동쪽, 남쪽 방향 두개 저장, 출발점 (0,0)
-        heap = [(0, 0, 0, 0), (0, 1, 0, 0)]
-        # 동쪽 방문체크
-        visited[0][0][0] = 0
-        # 남쪽 방문체크
-        visited[1][0][0] = 0
+        queue.append((0, direction, 0, 0))
+        # 방문체크
+        visited[0][0] = 0
             
-        while heap:
+        while queue:
             # 현재 비용, 방향, 행 열 위치
-            cost, k, x, y = heapq.heappop(heap)
+            cost, k, x, y = queue.popleft()
 
-            if visited[k][x][y] < cost:
+            if visited[x][y] < cost or (x, y) == (n-1, n-1):
                 continue
+                
             # 4방향 탐색
             for nk in range(4):
                 nx = x + dx[nk]
@@ -37,17 +36,18 @@ def solution(board):
                         new_road_cost += 500
                     # 새로운 설계 비용
                     next_cost = cost + new_road_cost
-                    # 최소 비용 갱신
-                    if next_cost < visited[nk][nx][ny]:
-                        visited[nk][nx][ny] = next_cost
-                        heapq.heappush(heap, (next_cost, nk, nx, ny))
+                    # 최소 비용 갱신 (=: 다른 방향에서 오는 경우도 탐색하기 위해)
+                    if next_cost <= visited[nx][ny]:
+                        visited[nx][ny] = next_cost
+                        queue.append((next_cost, nk, nx, ny))
         # 각 방향에서의 최소비용을 가져와 비교하여 최소비용 반환
-        return min(visited[0][n-1][n-1], visited[1][n-1][n-1], visited[2][n-1][n-1], visited[3][n-1][n-1])
+        return visited[n-1][n-1]
         
 
     n = len(board)
     # 동 남 서 북
     dx = [0, 1, 0, -1]
     dy = [1, 0, -1, 0]
-    answer = dijkstra()
+    # 동쪽, 남쪽 방향 최소비용 탐색
+    answer = min(bfs(0), bfs(1))
     return answer
