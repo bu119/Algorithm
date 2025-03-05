@@ -10,7 +10,6 @@ def find_parent(x):
         parent[x] = find_parent(parent[x])
     return parent[x]
 
-
 # 두 원소가 속한 집합 합치기
 def union_parent(a, b):
     # 각 루트 노드 찾기
@@ -35,7 +34,7 @@ for _ in range(t):
     parent = dict()
     # 각 사람의 친구 네트워크 수 저장
     total = dict()
-
+    
     for _ in range(n):
         f1, f2 = input().split()
         # 자신의 존재 등록
