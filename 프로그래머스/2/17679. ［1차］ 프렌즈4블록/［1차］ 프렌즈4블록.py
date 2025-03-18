@@ -1,51 +1,48 @@
-from copy import deepcopy
-from collections import deque 
-
 def solution(m, n, board):
     # 블록 제거하는 함수
     def remove_blocks():
-        new_board = deepcopy(board)
-        removable_blocks = set()
-        for x in range(m-1):
-            for y in range(n-1):
-                if board[x][y] != "" and board[x][y] == board[x][y+1] == board[x+1][y] == board[x+1][y+1]:
-                    for rx, ry in [(x,y), (x,y+1), (x+1,y), (x+1,y+1)]:
-                        new_board[rx][ry] = ""
-                        removable_blocks.add((rx, ry))
-        return new_board, len(removable_blocks)
+        target_blocks  = set()
+        for row in range(m-1):
+            for col in range(n-1):
+                # 블록이 있으면 조건 탐색
+                if board[row][col] == "":
+                    continue
+                if board[row][col] == board[row][col+1] == board[row+1][col] == board[row+1][col+1]:
+                    target_blocks |= {(row,col), (row,col+1), (row+1,col), (row+1,col+1)}
+        return target_blocks
 
     # 블록 내리는 함수
     def drop_blocks():
         # 열 기준 처리
         for col in range(n):
-            # 현재 열의 숫자를 저장할 큐
-            queue = deque()
-
-            # 위에서 아래로 내려가며 숫자만 큐에 추가
-            for row in range(m):
+            # 현재 열의 숫자를 저장할 스택
+            stack = []
+            # 아래에서 위로 올라가며 블록만 찾아 스택에 추가
+            for row in range(m-1,-1,-1):
                 if board[row][col] != "":
-                    queue.append(board[row][col])
+                    stack.append(board[row][col])
+                    board[row][col] = ""
+            # 블록 개수만큼 위쪽부터 블록 채워 넣기
+            for row in range(m - len(stack), m):
+                board[row][col] = stack.pop()
 
-            # 아래쪽부터 숫자를 채워 넣기
-            for row in range(m - len(queue)):  # 빈 공간을 0으로 유지
-                board[row][col] = ""
-
-            for row in range(m - len(queue), m):  # 큐에 있는 숫자를 아래부터 채우기
-                board[row][col] = queue.popleft()
-
+    # 지워질 블록 수 저장      
     answer = 0
+    # list로 변경
     for i in range(m):
         board[i] = list(board[i])
-        
+    # 지워질 블록이 존재하면 계속 탐색
     while True:
         # 현재 타임에 사라지는 블록 저장
-        board, removable_cnt = remove_blocks()
-        # 제거되는 블록이 없으면 탐색 종료
-        if removable_cnt == 0:
+        removable_blocks = remove_blocks()
+        # 지워지는 블록이 없으면 탐색 종료
+        if not removable_blocks:
             break
-            
         # 사라지는 블록 개수 추가
-        answer += removable_cnt
+        answer += len(removable_blocks)
+        # 블록 제거하기
+        for i, j in removable_blocks:
+            board[i][j] = ""
         # 블록 내리기
         drop_blocks()
     return answer
