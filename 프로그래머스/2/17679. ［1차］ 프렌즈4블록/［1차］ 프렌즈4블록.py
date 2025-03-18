@@ -1,12 +1,14 @@
 def solution(m, n, board):
     # 블록 제거하는 함수
     def remove_blocks():
-        target_blocks  = set()
+        # 제거될 블록 위치 저장
+        target_blocks = set()
         for row in range(m-1):
             for col in range(n-1):
                 # 블록이 있으면 조건 탐색
                 if board[row][col] == "":
                     continue
+                # 4개의 블록 모양이 같으면 사라질 블럭
                 if board[row][col] == board[row][col+1] == board[row+1][col] == board[row+1][col+1]:
                     target_blocks |= {(row,col), (row,col+1), (row+1,col), (row+1,col+1)}
         return target_blocks
@@ -15,18 +17,18 @@ def solution(m, n, board):
     def drop_blocks():
         # 열 기준 처리
         for col in range(n):
-            # 현재 열의 숫자를 저장할 스택
+            # 현재 열의 블록 모양을 저장할 스택
             stack = []
             # 아래에서 위로 올라가며 블록만 찾아 스택에 추가
             for row in range(m-1,-1,-1):
                 if board[row][col] != "":
                     stack.append(board[row][col])
                     board[row][col] = ""
-            # 블록 개수만큼 위쪽부터 블록 채워 넣기
+            # 블록 개수만큼 위쪽부터 블록모양 채워 넣기
             for row in range(m - len(stack), m):
                 board[row][col] = stack.pop()
 
-    # 지워질 블록 수 저장      
+    # 지워질 블록 수 저장
     answer = 0
     # list로 변경
     for i in range(m):
