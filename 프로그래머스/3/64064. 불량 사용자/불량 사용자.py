@@ -1,47 +1,50 @@
 def solution(user_id, banned_id):
-    n = len(banned_id)
-    banned_user = set()
-    users = set(user_id)
-    # 불량 사용자 목록에 해당하는 사용자 목록
-    visited = set()
     
-    
-    # 불량 사용자 a에 사용자 b가 해당되는 지 확인 (c는 길이)
-    def is_same(a, b, c):
-        for x in range(c):
-            # "*" 는 비교 x
-            if a[x] == "*":
-                continue
-            # 문자가 다르면 False 반환
-            if a[x] != b[x]:
+    # 불량 사용자가 될 수 있는 지 확인
+    def is_banned_user(a, b):
+        # a: 불량사용자
+        # b: 불량사용자 후보
+        k = len(a)
+        for i in range(k):
+            # "*"이 아니고, 두 문자가 같지 않으면 False 반환
+            if a[i] != "*" and a[i] != b[i]:
                 return False
         return True
     
+    # 불량 사용자 후보 가져오기
+    def find_banned_candidates(banned_users, users):
+        # 불량 사용자 후보 저장
+        candidates = dict()
+        for banned_user in banned_users:
+            x = len(banned_user)
+            candidates[banned_user] = set()
+            for candidate in users:
+                y = len(candidate)
+                # 아이디 길이가 같고 불량 사용자 후보이면
+                if x == y and is_banned_user(banned_user, candidate):
+                    # 불량 후보로 저장
+                    candidates[banned_user].add(candidate)
+        return candidates
+    
+    # 제재 아이디 목록 찾기
     def dfs(banned_idx):
-        nonlocal visited
         if banned_idx == n:
-            visited.add(tuple(sorted(banned_user)))
+            answer.add(tuple(sorted(visited)))
             return
-        # 불량 사용자 길이 *
-        m = len(banned_id[banned_idx])
-        for user in users:
-            # 비교 사용자 길이
-            k = len(user)
-            # 길이 비교
-            if m != k:
-                continue
-            # 길이가 같으면 불량 사용자인지 탐색
-            if is_same(banned_id[banned_idx], user, m):
-                # 같으면 불량사용자에 포함
-                banned_user.add(user)
-                # 응모 사용자에서 제거
-                users.remove(user)
-                # 다음 불량 사용자 아이디 목록 탐색
+        # 불량 사용자 후보 탐색
+        for user in banned_candidates[banned_id[banned_idx]]:
+            if user not in visited:
+                visited.add(user)
                 dfs(banned_idx+1)
-                # 재귀 나오면 복구
-                banned_user.remove(user)
-                users.add(user)
-                
-                
+                visited.remove(user)
+
+    # 제재 아이디 개수
+    n = len(banned_id)
+    # 제재 아이디 목록 저장
+    answer = set()
+    banned_candidates = find_banned_candidates(banned_id, user_id)
+    # 현재 탐색에서 선정된 제재 아이디 방문 체크
+    visited = set()
     dfs(0)
-    return len(visited)
+    
+    return len(answer)
