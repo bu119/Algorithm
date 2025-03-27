@@ -15,15 +15,17 @@ def solution(user_id, banned_id):
     def find_banned_candidates(banned_users, users):
         # 불량 사용자 후보 저장
         candidates = dict()
-        for banned_user in banned_users:
+        for i in range(n):
+            banned_user = banned_users[i]
             x = len(banned_user)
-            candidates[banned_user] = set()
-            for candidate in users:
+            candidates[i] = set()
+            for j in range(m):
+                candidate = users[j]
                 y = len(candidate)
                 # 아이디 길이가 같고 불량 사용자 후보이면
                 if x == y and is_banned_user(banned_user, candidate):
                     # 불량 후보로 저장
-                    candidates[banned_user].add(candidate)
+                    candidates[i].add(j)
         return candidates
     
     # 제재 아이디 목록 찾기
@@ -32,7 +34,7 @@ def solution(user_id, banned_id):
             answer.add(tuple(sorted(visited)))
             return
         # 불량 사용자 후보 탐색
-        for user in banned_candidates[banned_id[banned_idx]]:
+        for user in banned_candidates[banned_idx]:
             if user not in visited:
                 visited.add(user)
                 dfs(banned_idx+1)
@@ -40,6 +42,8 @@ def solution(user_id, banned_id):
 
     # 제재 아이디 개수
     n = len(banned_id)
+    # 사용자 수
+    m = len(user_id)
     # 제재 아이디 목록 저장
     answer = set()
     banned_candidates = find_banned_candidates(banned_id, user_id)
