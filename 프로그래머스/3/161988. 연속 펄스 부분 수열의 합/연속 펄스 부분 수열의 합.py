@@ -1,9 +1,9 @@
 def solution(sequence):
     n = len(sequence)
     answer = 0
-    # [1,-1, ...]
+    # [1,-1,...]
     even = 0
-    # [-1, 1, ...]
+    # [-1, 1,...]
     odd = 0
     for i in range(n):
         # 펄스 수열 곱한 수
