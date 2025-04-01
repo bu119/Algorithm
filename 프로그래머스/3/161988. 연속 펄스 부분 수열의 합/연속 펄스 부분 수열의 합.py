@@ -7,6 +7,6 @@ def solution(sequence):
     dp_odd = [0]*n
     for i in range(n):
         num = (1 if i%2 == 0 else -1)
-        dp_even[i] = max(dp_even[i], dp_even[i-1] + sequence[i]*num)
-        dp_odd[i] = max(dp_odd[i], dp_odd[i-1] - sequence[i]*num)
+        dp_even[i] = max(sequence[i]*num, dp_even[i-1] + sequence[i]*num)
+        dp_odd[i] = max(-sequence[i]*num, dp_odd[i-1] - sequence[i]*num)
     return max(max(dp_even), max(dp_odd))
