@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 def solution(key, lock):
     # 열쇠 회전
     def rotate_90(matrix):
@@ -20,7 +22,7 @@ def solution(key, lock):
             for dx in range(m + n - 1):
                 for dy in range(m + n - 1):
                     # 자물쇠 복사
-                    lock_area = [row[:] for row in padded_lock]
+                    lock_area = deepcopy(padded_lock)
                     # 열쇠를 자물쇠에 덮기
                     for x in range(m):
                         for y in range(m):
