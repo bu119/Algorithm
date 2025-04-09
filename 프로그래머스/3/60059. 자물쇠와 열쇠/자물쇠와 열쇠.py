@@ -2,7 +2,7 @@ def solution(key, lock):
     # 열쇠 회전
     def rotate_90(matrix):
         # 90도 회전
-        return [list(row) for row in zip(*matrix[::-1])]
+        return [row for row in zip(*matrix[::-1])]
     
     # 열쇠와 자물쇠가 일치하는 지 확인
     def check_match(area):
