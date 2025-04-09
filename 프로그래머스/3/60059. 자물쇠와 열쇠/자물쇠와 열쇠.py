@@ -23,9 +23,8 @@ def solution(key, lock):
                             # 열쇠가 이동한 위치
                             nx = x + dx
                             ny = y + dy
-                            if m-1 <= nx <= m+n-2 and m-1 <= ny <= m+n-2:
-                                # 자물쇠에 맞춰보기
-                                lock_area[nx][ny] += rotated_keys[k][x][y]
+                            # 자물쇠에 맞춰보기
+                            lock_area[nx][ny] += rotated_keys[k][x][y]
                     # 열쇠와 자물쇠가 일치하는 지 확인
                     if check_match(lock_area):
                         return True
