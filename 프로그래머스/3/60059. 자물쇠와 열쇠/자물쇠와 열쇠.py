@@ -23,8 +23,9 @@ def solution(key, lock):
                             # 열쇠가 이동한 위치
                             nx = x + dx
                             ny = y + dy
-                            # 자물쇠에 맞춰보기
-                            lock_area[nx][ny] += rotated_keys[k][x][y]
+                            if m-1 <= nx <= m+n-2 and m-1 <= ny <= m+n-2:
+                                # 자물쇠에 맞춰보기
+                                lock_area[nx][ny] += rotated_keys[k][x][y]
                     # 열쇠와 자물쇠가 일치하는 지 확인
                     if check_match(lock_area):
                         return True
@@ -39,11 +40,8 @@ def solution(key, lock):
         for j in range(n):
             padded_lock[i + m - 1][j + m - 1] = lock[i][j]
     # 회전 각도별 열쇠 저장(90도씩 시계)
-    rotated_keys = {0: key, 1: [[0]*m for _ in range(m)], 2: [[0]*m for _ in range(m)], 3: [[0]*m for _ in range(m)]}
-    for i in range(m):
-        for j in range(m):
-            rotated_keys[1][j][m-i-1] = key[i][j]
-            rotated_keys[2][m-i-1][m-j-1] = key[i][j]
-            rotated_keys[3][m-j-1][i] = key[i][j]
+    rotated_keys = {0: key}
+    for cnt in range(1, 4):
+        rotated_keys[cnt] = list(zip(*rotated_keys[cnt-1][::-1]))
     # 자물쇠 열 수 있는 지
     return can_unlock()
