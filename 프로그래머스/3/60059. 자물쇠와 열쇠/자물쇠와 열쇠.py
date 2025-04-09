@@ -2,7 +2,7 @@ from copy import deepcopy
 
 def solution(key, lock):
     # 자물쇠 영역 내에서 열쇠와 자물쇠가 일치하는 지 확인
-    def try_unlock(area):
+    def check_match(area):
         for i in range(n):
             for j in range(n):
                 if area[i + m-1][j + m-1] != 1:
@@ -26,7 +26,7 @@ def solution(key, lock):
                             # 자물쇠에 맞춰보기
                             lock_area[nx][ny] += rotated_keys[k][x][y]
                     # 열쇠와 자물쇠가 일치하는 지 확인
-                    if try_unlock(lock_area):
+                    if check_match(lock_area):
                         return True
         return False
 
