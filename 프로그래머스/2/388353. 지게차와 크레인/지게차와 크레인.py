@@ -31,7 +31,7 @@ def solution(storage, requests):
                 elif storage[i][j] == "" and visited[i][j] == 0:
                     bfs(alpha, i, j)
         # 좌우 탐색
-        for i in range(n):
+        for i in range(1, n-1):
             for j in [0, m-1]:
                 if storage[i][j] == alpha:
                     dispatch_containers.add((i, j))
