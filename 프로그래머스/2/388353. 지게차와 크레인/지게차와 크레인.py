@@ -21,12 +21,13 @@ def solution(storage, requests):
     # 지게차: 출고 요청이 들어온 순간 접근 가능한 컨테이너를 꺼냄
     # 접근이 가능한 컨테이너란 4면 중 적어도 1면이 창고 외부와 연결된 컨테이너
     def use_forklift(alpha):
-        nonlocal dispatch_containers
+        nonlocal dispatch_containers, visited
 
         # 위아래 탐색
         for i in [0, n-1]:
             for j in range(m):
                 if storage[i][j] == alpha:
+                    visited[i][j] = 1
                     dispatch_containers.append((i, j))
                 elif storage[i][j] == "" and visited[i][j] == 0:
                     bfs(alpha, i, j)
@@ -34,6 +35,7 @@ def solution(storage, requests):
         for i in range(1, n-1):
             for j in [0, m-1]:
                 if storage[i][j] == alpha:
+                    visited[i][j] = 1
                     dispatch_containers.append((i, j))
                 elif storage[i][j] == "" and visited[i][j] == 0:
                     bfs(alpha, i, j)
