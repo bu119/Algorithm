@@ -58,15 +58,17 @@ def solution(storage, requests):
     for request in requests:
         # 알파벳 하나 -> 지게차
         # 같은 알파벳이 두 번 반복 -> 크레인
-        # 꺼내는 컨테이너 위치 저장
-        dispatch_containers = set()
         if len(request) == 1:
+            # 꺼내는 컨테이너 위치 저장
+            dispatch_containers = set()
             # 방문 체크
             visited = [[0]*m for _ in range(n)]
             use_forklift(request)            
         else:
+            dispatch_containers = []
             if request[0] in containers:              
-                dispatch_containers = containers.pop(request[0])
+                dispatch_containers = containers.pop(request[0])                
+                
         # 컨테이너 꺼내기        
         for row, col in dispatch_containers:
             storage[row][col] = ""
