@@ -72,7 +72,7 @@ def solution(storage, requests):
             if request[0] not in containers:
                 continue
                 
-            for row, col in containers[request[0]]:
+            for row, col in containers.pop(request[0]):
                 storage[row][col] = ""
                 
     answer = 0
