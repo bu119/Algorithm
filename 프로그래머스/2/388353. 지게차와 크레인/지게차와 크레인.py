@@ -28,14 +28,14 @@ def solution(storage, requests):
             for j in range(m):
                 if storage[i][j] == alpha:
                     dispatch_containers.add((i, j))
-                elif storage[i][j] == "" and visited[i][j] == 0:
+                elif storage[i][j] == "" and not visited[i][j]:
                     bfs(alpha, i, j)
         # 좌우 탐색
         for i in range(1, n-1):
             for j in [0, m-1]:
                 if storage[i][j] == alpha:
                     dispatch_containers.add((i, j))
-                elif storage[i][j] == "" and visited[i][j] == 0:
+                elif storage[i][j] == "" and not visited[i][j]:
                     bfs(alpha, i, j)
                     
                     
@@ -43,7 +43,8 @@ def solution(storage, requests):
     m = len(storage[0])
     di = [-1, 1, 0, 0]
     dj = [0, 0, -1, 1]
-    
+    # 초기 컨테이너 수
+    answer = n*m
     # storage 리스트화
     for row in range(n):
         storage[row] = list(storage[row])
@@ -53,7 +54,7 @@ def solution(storage, requests):
     # 각 알파벳 위치 탐색
     for row in range(n):
         for col in range(m):
-            containers.setdefault(storage[row][col], []).append((row, col))
+                containers.setdefault(storage[row][col], set()).add((row, col))
     
     for request in requests:
         # 알파벳 하나 -> 지게차
@@ -65,19 +66,13 @@ def solution(storage, requests):
             visited = [[0]*m for _ in range(n)]
             use_forklift(request)            
         else:
-            dispatch_containers = []
-            if request[0] in containers:              
-                dispatch_containers = containers.pop(request[0])                
-                
-        # 컨테이너 꺼내기        
+            if request[0] in containers:
+                dispatch_containers = containers.pop(request[0])
+            else:
+                dispatch_containers = set()
+        # 꺼낸 컨테이너 제거
         for row, col in dispatch_containers:
-            storage[row][col] = ""
-                
-    answer = 0
-    # 각 알파벳 위치 탐색
-    for row in range(n):
-        for col in range(m):
             if storage[row][col] != "":
-                answer += 1
-                
+                storage[row][col] = ""
+                answer -= 1  # 꺼낼 때마다 answer 감소
     return answer
