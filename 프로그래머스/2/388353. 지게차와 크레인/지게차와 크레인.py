@@ -44,36 +44,32 @@ def solution(storage, requests):
     di = [-1, 1, 0, 0]
     dj = [0, 0, -1, 1]
     
+    # storage 리스트화
+    for row in range(n):
+        storage[row] = list(storage[row])
+    
     # 각 알파벳 위치 저장
     containers = dict()
     # 각 알파벳 위치 탐색
     for row in range(n):
         for col in range(m):
-            if storage[row][col] in containers:
-                containers[storage[row][col]].append((row, col))
-            else:
-                containers[storage[row][col]] = [(row, col)]
-        # storage를 리스트로 바꿔서 저장
-        storage[row] = list(storage[row])
+            containers.setdefault(storage[row][col], set()).add((row, col))
     
     for request in requests:
         # 알파벳 하나 -> 지게차
         # 같은 알파벳이 두 번 반복 -> 크레인
+        # 꺼내는 컨테이너 위치 저장
+        dispatch_containers = set()
         if len(request) == 1:
-            # 꺼낼 컨테이너 위치
-            dispatch_containers = set()
             # 방문 체크
             visited = [[0]*m for _ in range(n)]
-            use_forklift(request)
-            for row, col in dispatch_containers:
-                storage[row][col] = ""
-            
+            use_forklift(request)            
         else:
-            if request[0] not in containers:
-                continue
-                
-            for row, col in containers.pop(request[0]):
-                storage[row][col] = ""
+            if request[0] in containers:              
+                dispatch_containers = containers.pop(request[0])
+        # 컨테이너 꺼내기        
+        for row, col in dispatch_containers:
+            storage[row][col] = ""
                 
     answer = 0
     # 각 알파벳 위치 탐색
