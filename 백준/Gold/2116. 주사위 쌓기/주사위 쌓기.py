@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 # 각 주사위 마주보는 면 저장
 dices = {}
