@@ -2,13 +2,12 @@ def solution(info, n, m):
     
     def dfs(idx, a, b):
         nonlocal answer
-        # 누적 개수가 초과하거나, 누적 값이 계산된 최솟값 이상이면 탐색 중단
+        # 누적 개수가 조건을 초과하거나, 현재 누적 값이 이미 계산된 최솟값보다 같거나 크면 해당 탐색 종료
         if a >= n or b >= m or answer <= a:
             return
-        # 이미 방문한 상태라면 탐색 중단
+        # 이미 방문한 상태라면 중단
         if (idx, a, b) in visited:
             return
-        # 방문 체크
         visited.add((idx, a, b))
         # 마지막 물건을 품치면 최소값 갱신
         if idx == len(info):
