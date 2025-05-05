@@ -1,28 +1,30 @@
+import heapq
+
 def solution(info, n, m):
     
-    def dfs(idx, a, b):
-        nonlocal answer
-        # 누적 개수가 조건을 초과하거나, 현재 누적 값이 이미 계산된 최솟값보다 같거나 크면 해당 탐색 종료
-        if a >= n or b >= m or answer <= a:
-            return
-        # 이미 방문한 상태라면 중단
-        if (idx, a, b) in visited:
-            return
-        visited.add((idx, a, b))
-        # 마지막 물건을 품치면 최소값 갱신
-        if idx == len(info):
-            answer = min(answer, a)
-            return
-    
-        dfs(idx+1, a+info[idx][0], b)
-        dfs(idx+1, a, b+info[idx][1])
+    def bfs():
+        # a, b 누적 값, 몇번 째 훔치는 지
+        heap = [(0, 0, 0)]
+        visited = set()
+        while heap:
+            a, b, idx = heapq.heappop(heap)
+            # 누적 개수가 조건을 초과하면 탐색 중단
+            if a >= n or b >= m:
+                continue
+            # 이미 방문한 상태라면 탐색 중단
+            if (idx, a, b) in visited:
+                continue
+            visited.add((idx, a, b))
+            # 마지막 물건을 훔치면 최솟값 반환
+            if idx == stolen_cnt:
+                return a
+            
+            heapq.heappush(heap, (a+info[idx][0], b, idx+1))
+            heapq.heappush(heap, (a, b+info[idx][1], idx+1))
         
-
-    answer = 121
-    visited = set()
-    dfs(0, 0, 0)
+        return -1
     
-    if answer == 121:
-        answer = -1
-        
+    
+    stolen_cnt = len(info)
+    answer = bfs()
     return answer
