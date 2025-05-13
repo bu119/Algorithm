@@ -1,11 +1,14 @@
 def solution(n, bans):
     # 숫자 위치를 문자로 표현
     def get_string(idx):
-        nonlocal answer
-        if (idx-1) // 26:
-            get_string((idx-1) // 26)
-        answer += alphabet[((idx-1) % 26)]
-        
+        string = []
+        while idx > 0:
+            # 인덱스 기반으로 변경 (0~25)
+            idx -= 1
+            string.append(alphabet[idx % 26])
+            idx //= 26
+        return ''.join(reversed(string))
+
     # 문자를 숫자 위치로 표현
     def get_idx_to_string(string):
         m = len(string)
@@ -40,6 +43,5 @@ def solution(n, bans):
     for ban in bans:
         bans_num.append(get_idx_to_string(ban))
     
-    answer = ''
-    get_string(get_new_n(sorted(bans_num), n))
+    answer = get_string(get_new_n(sorted(bans_num), n))
     return answer
