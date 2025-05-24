@@ -1,8 +1,6 @@
 def solution(s):
     # 집합별로 리스트 형태로 만들기
-    s = s.replace("{{", "")
-    s = s.replace("}}", "")
-    s_list = s.split("},{")
+    s_list = s.lstrip('{').rstrip('}').split("},{")
     # 집합 개수
     n = len(s_list)
     # 각 문자열 집합 형태를 진짜 집합으로 만들기 
