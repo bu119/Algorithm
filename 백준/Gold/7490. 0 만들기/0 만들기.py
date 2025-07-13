@@ -1,9 +1,10 @@
 def evaluates_to_zero(expression):
-    expression = expression.replace(" ", "")
     result = 0
     r_operand = ""
     pre_operator = "+"
     for e in expression:
+        if e == " ":
+            continue
         # 피연산자: 숫자 누적
         if e.isdigit():
             r_operand += e
