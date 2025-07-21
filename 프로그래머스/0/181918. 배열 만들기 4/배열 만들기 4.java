@@ -1,17 +1,16 @@
-import java.util.ArrayList;
+import java.util.Stack;
 
 class Solution {
     public int[] solution(int[] arr) {
-        ArrayList<Integer> stk = new ArrayList<>();
+        Stack<Integer> stk = new Stack<>();
         int n = arr.length;
         int i = 0;
         while (i < n) {
-            int m = stk.size();
-        	if (stk.isEmpty() || stk.get(m-1) < arr[i]) {
-            	stk.add(arr[i]);
+        	if (stk.isEmpty() || stk.peek() < arr[i]) {
+            	stk.push(arr[i]);
                 i += 1;
             } else {               
-                stk.remove(m - 1);
+                stk.pop();
             }
         }  
         return stk.stream().mapToInt(Integer::intValue).toArray();
