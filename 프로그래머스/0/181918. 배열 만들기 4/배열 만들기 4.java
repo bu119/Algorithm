@@ -6,18 +6,12 @@ class Solution {
         int n = arr.length;
         int i = 0;
         while (i < n) {
-        	if (stk.isEmpty()) {
+            int m = stk.size();
+        	if (stk.isEmpty() || stk.get(m-1) < arr[i]) {
             	stk.add(arr[i]);
                 i += 1;
             } else {               
-                int m = stk.size();
-                if (stk.get(m-1) < arr[i]) {
-                    stk.add(arr[i]);
-                    i += 1;
-                }
-            	else {
-            		stk.remove(m - 1);
-                }
+                stk.remove(m - 1);
             }
         }  
         return stk.stream().mapToInt(Integer::intValue).toArray();
