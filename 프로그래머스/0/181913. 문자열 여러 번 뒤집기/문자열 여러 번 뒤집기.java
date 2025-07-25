@@ -5,10 +5,7 @@ class Solution {
         for (int i = 0; i < queries.length; i++) {
             int s = queries[i][0];
             int e = queries[i][1];
-    		String reversed = "";
-            for (int j = e; s <= j; j--) {
-                reversed += answer.charAt(j);
-            }
+    		String reversed = new StringBuilder(answer.substring(s, e + 1)).reverse().toString();
     		answer = answer.substring(0, s) + reversed + answer.substring(e + 1);
         }
         return answer;
