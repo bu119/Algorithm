@@ -3,16 +3,14 @@ class Solution {
         int[] answer = new int[2];
         int numer = numer1*denom2 + numer2*denom1;
         int denom = denom1 * denom2;
-        int gcd = 1;
-        for (int i = Math.max(numer, denom);i > 1; i--) {
+        for (int i = Math.max(numer, denom);i > 0; i--) {
+            // 최대공약수 찾아서 기약분수로 만들기
             if (numer%i == 0 && denom%i == 0){
-                // 최대공약수
-                gcd = i;
+                answer[0] = numer / i;
+                answer[1] = denom / i;
                 break;
             }
         }
-        answer[0] = numer / gcd;
-        answer[1] = denom / gcd;
         return answer;
     }
 }
