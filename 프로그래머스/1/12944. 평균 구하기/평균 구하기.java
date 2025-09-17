@@ -1,12 +1,9 @@
+import java.util.Arrays;
+
 class Solution {
     public double solution(int[] arr) {
-        double answer = 0;
-        int n = arr.length;
+        int sum = Arrays.stream(arr).sum(); // 배열 합
         
-        for (int i = 0; i < n; i++) {
-            answer += arr[i];
-        }
-        answer /= n;
-        return answer;
+        return (double) sum / arr.length;   // 평균
     }
 }
