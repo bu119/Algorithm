@@ -1,13 +1,17 @@
 class Solution {
     public int solution(String t, String p) {
         int answer = 0;
-        // p 길이 찾기
+        // 길이 찾기
         int n = t.length();
         int m = p.length();
-        long p_num = Long.parseLong(p);
-        // t에서 p 길이만큼 부분 문자열을 찾아,숫자 비교
+        // long으로 변환
+        long pNum = Long.parseLong(p);
+        // p길이의 부분문자열을 찾아서 숫자 비교
         for (int i = 0; i < n-m+1; i++) {
-            if (Long.parseLong(t.substring(i,i+m)) <= p_num) {
+            // long으로 변환
+            long tSubNum = Long.parseLong(t.substring(i,i+m));
+            // 크기 비교
+            if (tSubNum <= pNum) {
                 answer++;
             }
         }
